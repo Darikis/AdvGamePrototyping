@@ -9,12 +9,19 @@ public class Player1Ctrl : MonoBehaviour {
     public float MoveVal;
     public float Zval;
     public float Xval;
+    public int Vote01;
+    public int Vote02;
+    public int Vote03;
+    public int Vote04;
     public Vector3 Pos;
-    public bool InputReady;
+    public bool InputReady = false;
+    public bool Pressed = false;
     public Rigidbody rigi;
     public Timer Timer;
+    public Manager Mana;
     public Players PlayerCtrl;
     public List<CtrlScheme> ListOfPlayers;
+    
   
 
 
@@ -36,9 +43,6 @@ public class Player1Ctrl : MonoBehaviour {
         Pos = Player.transform.position;
         Zval = Pos.z;
         Xval = Pos.x;
-        
-        
-       
 
 	}
 	
@@ -47,7 +51,7 @@ public class Player1Ctrl : MonoBehaviour {
 
         Pos = new Vector3(Xval, 1, Zval);
 
-        if (Timer.timeLeft > 0)
+        if (Timer.timeLeft > 0 && Timer.Ready == true)
         {
             InputReady = true;
         }
@@ -56,30 +60,45 @@ public class Player1Ctrl : MonoBehaviour {
             InputReady = false;
         }
         
-        if (InputReady == false)
+        if (Timer.timeLeft <= 0)
         {
-            Timer.timeLeft = 0;
             Player.transform.position = Pos;
             StartCoroutine(Pause());
         }
         
         foreach (CtrlScheme ctrl in ListOfPlayers)
         {
-            if (Input.GetKeyDown(ctrl.B1))
+            if (Pressed == false)
+            {
+                ctrl.ReadyToAct = true;
+            }
+            if (Input.GetKeyDown(ctrl.B1) && InputReady == true && ctrl.ReadyToAct == true)
             {
                 MoveForward();
+                Pressed = true;
+                Vote01 = Vote01 + 1;
+                ctrl.ReadyToAct = false;
             }
-            if (Input.GetKeyDown(ctrl.B2))
+            if (Input.GetKeyDown(ctrl.B2) && InputReady == true && ctrl.ReadyToAct == true)
             {
                 MoveRight();
+                Pressed = true;
+                Vote02 = Vote02 + 1;
+                ctrl.ReadyToAct = false;
             }
-            if (Input.GetKeyDown(ctrl.B3))
+            if (Input.GetKeyDown(ctrl.B3) && InputReady == true && ctrl.ReadyToAct == true)
             {
                 MoveLeft();
+                Pressed = true;
+                Vote03 = Vote03 + 1;
+                ctrl.ReadyToAct = false;
             }
-            if (Input.GetKeyDown(ctrl.B4))
+            if (Input.GetKeyDown(ctrl.B4) && InputReady == true && ctrl.ReadyToAct == true)
             {
                 MoveBackward();
+                Pressed = true;
+                Vote04 = Vote04 + 1;
+                ctrl.ReadyToAct = false;
             }
         }
     }
@@ -87,32 +106,35 @@ public class Player1Ctrl : MonoBehaviour {
     {
         Zval = Zval + MoveVal;
         //rigi.AddForce(Vector3.forward * RunSpeed, ForceMode.Impulse);
-        
     }
     void MoveBackward()
     {
         Zval = Zval - MoveVal;
         //rigi.AddForce(Vector3.back * RunSpeed, ForceMode.Impulse);
-        
     }
     void MoveRight()
     {
         Xval = Xval + MoveVal;
         //rigi.AddForce(Vector3.right * RunSpeed, ForceMode.Impulse);
-        
     }
     void MoveLeft()
     {
         Xval = Xval - MoveVal;
         //rigi.AddForce(Vector3.left * RunSpeed, ForceMode.Impulse);
-        
     }
+
     IEnumerator Pause()
     {
-        
         yield return new WaitForSeconds(1f);
-        Timer.timeLeft = 1;
-        Timer.CountDown = true;
+        Timer.timeLeft = 2;
+        Timer.Play = false;
+        Pressed = false;
         StopCoroutine(Pause());
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        print("Something Hit Me!");
+    }
+
 }

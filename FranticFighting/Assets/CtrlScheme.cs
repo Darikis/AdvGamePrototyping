@@ -11,5 +11,5 @@ public class CtrlScheme : ScriptableObject
     public KeyCode B2;
     public KeyCode B3;
     public KeyCode B4;
-
+    public bool ReadyToAct = true;
 }
