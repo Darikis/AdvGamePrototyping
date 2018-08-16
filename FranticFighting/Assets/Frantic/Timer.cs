@@ -29,11 +29,12 @@ public class Timer : MonoBehaviour {
             //PromptText.text = "Get Ready!";
             StartCoroutine(ReadyUp());
         }
-        if (Ready == true)
+        if (Ready == true && timeLeft > 0 )
         {
             PromptText.text = "Please Input Command to Start";
             //StopCoroutine(ReadyUp());
             Play = true;
+            
             //Debug.Log("Not Here");
         }
         if (Play == true && Player.Pressed == true)
