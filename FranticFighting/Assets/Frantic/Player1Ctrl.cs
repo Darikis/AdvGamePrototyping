@@ -76,50 +76,55 @@ public class Player1Ctrl : MonoBehaviour {
             {
                 MoveForward();
                 Pressed = true;
-                Vote01 = Vote01 + 1;
                 ctrl.ReadyToAct = false;
+                //Debug.Log("BAD BAD BAD");
             }
             if (Input.GetKeyDown(ctrl.B2) && InputReady == true && ctrl.ReadyToAct == true)
             {
                 MoveRight();
                 Pressed = true;
-                Vote02 = Vote02 + 1;
                 ctrl.ReadyToAct = false;
+                
             }
             if (Input.GetKeyDown(ctrl.B3) && InputReady == true && ctrl.ReadyToAct == true)
             {
                 MoveLeft();
                 Pressed = true;
-                Vote03 = Vote03 + 1;
                 ctrl.ReadyToAct = false;
+                
             }
             if (Input.GetKeyDown(ctrl.B4) && InputReady == true && ctrl.ReadyToAct == true)
             {
                 MoveBackward();
                 Pressed = true;
-                Vote04 = Vote04 + 1;
                 ctrl.ReadyToAct = false;
+                
             }
         }
     }
     void MoveForward()
     {
         Zval = Zval + MoveVal;
+        Vote01 = Vote01 + 1;
+        
         //rigi.AddForce(Vector3.forward * RunSpeed, ForceMode.Impulse);
     }
     void MoveBackward()
     {
         Zval = Zval - MoveVal;
+        Vote02 = Vote02 + 1;
         //rigi.AddForce(Vector3.back * RunSpeed, ForceMode.Impulse);
     }
     void MoveRight()
     {
         Xval = Xval + MoveVal;
+        Vote03 = Vote03 + 1;
         //rigi.AddForce(Vector3.right * RunSpeed, ForceMode.Impulse);
     }
     void MoveLeft()
     {
         Xval = Xval - MoveVal;
+        Vote04 = Vote04 + 1;
         //rigi.AddForce(Vector3.left * RunSpeed, ForceMode.Impulse);
     }
 

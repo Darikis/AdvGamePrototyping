@@ -1600,7 +1600,7 @@ MonoBehaviour:
   CountText: {fileID: 321121841}
   PromptText: {fileID: 1225097375}
   CountDown: 0
-  Ready: 1
+  Ready: 0
   Play: 0
   Live: 0
 --- !u!4 &138716927 stripped
@@ -5983,7 +5983,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &741047547
 RectTransform:
   m_ObjectHideFlags: 0

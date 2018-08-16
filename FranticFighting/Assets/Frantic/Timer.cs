@@ -24,30 +24,31 @@ public class Timer : MonoBehaviour {
 	void Update () {
 
         CountText.text = "TimeLeft: " + timeLeft.ToString();
-        if (Play == false && Live == true)
+        if (Ready == false && Live == true)
         {
             //PromptText.text = "Get Ready!";
             StartCoroutine(ReadyUp());
         }
-        if (Play == true)
+        if (Ready == true)
         {
             PromptText.text = "Please Input Command to Start";
             //StopCoroutine(ReadyUp());
-            Ready = true;
+            Play = true;
             //Debug.Log("Not Here");
         }
-        if (timeLeft > 0 && Player.Pressed == true)
+        if (Play == true && Player.Pressed == true)
         {
             //PromptText.text = "Please Input Command to Start";
             CountDown = true;
         }
-        if (timeLeft > 0 && Ready == true)
+        if (timeLeft > 0 && CountDown == true)
         {
             timeLeft -= Time.deltaTime;
         }
         if (timeLeft <= 0)
         {
             timeLeft = 0;
+            Play = false;
             Ready = false;
             CountDown = false;
         }
@@ -61,7 +62,7 @@ public class Timer : MonoBehaviour {
         //PromptText.text = "Please Input Command to Start";
         timeLeft = 2;
         //yield return new WaitForSeconds(1f);
-        Play = true;
+        Ready = true;
         Live = true;
         StopCoroutine(ReadyUp());
     }
