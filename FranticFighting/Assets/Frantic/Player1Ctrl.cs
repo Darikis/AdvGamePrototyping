@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player1Ctrl : MonoBehaviour {
 
@@ -22,6 +23,11 @@ public class Player1Ctrl : MonoBehaviour {
     public float Vote02;
     public float Vote03;
     public float Vote04;
+    public Image im01;
+    public Image im02;
+    public Image im03;
+    public Image im04;
+    public Image im05;
     public Vector3 Pos;
     public bool InputReady = false;
     public bool Pressed = false;
@@ -74,7 +80,7 @@ public class Player1Ctrl : MonoBehaviour {
         {
             if(Options[i]>)
         }*/
-        Pos = new Vector3(Xval, 1, Zval);
+        Pos = new Vector3(Xval, 1.2f, Zval);
 
         if (Timer.timeLeft > 0 && Timer.Ready == true)
         {
@@ -92,7 +98,36 @@ public class Player1Ctrl : MonoBehaviour {
             StartCoroutine(Pause());
             StartCoroutine(TallyUp());
         }
-        
+
+        if (Total >= 1)
+        {
+            im01.enabled = true;
+        } 
+        if (Total >= 2)
+        {
+            im02.enabled = true;
+        }
+        if (Total >= 3)
+        {
+            im03.enabled = true;
+        }
+        if (Total >= 4)
+        {
+            im04.enabled = true;
+        }
+        if (Total >= 5)
+        {
+            im05.enabled = true;
+        }
+        if (Total == 0)
+        {
+            im01.enabled = false;
+            im02.enabled = false;
+            im03.enabled = false;
+            im04.enabled = false;
+            im05.enabled = false;
+        }
+
         foreach (CtrlScheme ctrl in ListOfPlayers)
         {
             if (Pressed == false)
@@ -128,6 +163,14 @@ public class Player1Ctrl : MonoBehaviour {
                 ctrl.ReadyToAct = false;
                 
             }
+            /*if (Pressed == true)
+            {
+                ctrl.img.enabled = true;
+            }
+            else
+            {
+                ctrl.img.enabled = false;
+            }*/
         }
     }
     void MoveForward()
@@ -162,6 +205,7 @@ public class Player1Ctrl : MonoBehaviour {
         Pressed = false;
         Timer.timeLeft = 2;
         yield return new WaitForSeconds(1f);
+        Total = 0;
         StopCoroutine(Pause());
     }
 
@@ -199,6 +243,7 @@ public class Player1Ctrl : MonoBehaviour {
         {
             print("4 is bigga and equals " + Vote04);
         }
+        Total = Vote01 + Vote02 + Vote03 + Vote04;
         yield return new WaitForEndOfFrame();
         Vote01 = 0;
         Vote02 = 0;

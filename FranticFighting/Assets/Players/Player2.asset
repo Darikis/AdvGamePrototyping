@@ -16,3 +16,4 @@ MonoBehaviour:
   B3: 276
   B4: 274
   ReadyToAct: 1
+  img: {fileID: 114036121051928748, guid: 5b97ed29b047a43419f8079bc8df73a4, type: 2}
