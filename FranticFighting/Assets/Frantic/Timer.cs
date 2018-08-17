@@ -13,11 +13,14 @@ public class Timer : MonoBehaviour {
     public bool Ready = false;
     public bool Play = false;
     public bool Live = false;
+    public Color Default = new Color(0f, 250 / 255f, 255 / 255f);
+    public Color Action = new Color(255 / 255f, 240 / 255f, 0f);
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         
         StartCoroutine(ReadyUp());
+        
     }
 	
 	// Update is called once per frame
@@ -31,6 +34,7 @@ public class Timer : MonoBehaviour {
         }
         if (Ready == true && timeLeft > 0 )
         {
+            PromptText.color = Action;
             PromptText.text = "Please Input Command to Start";
             //StopCoroutine(ReadyUp());
             Play = true;
@@ -58,6 +62,7 @@ public class Timer : MonoBehaviour {
     }
     IEnumerator ReadyUp()
     {
+        PromptText.color = Default;
         PromptText.text = "Get Ready!";
         yield return new WaitForSeconds(1f);
         //PromptText.text = "Please Input Command to Start";

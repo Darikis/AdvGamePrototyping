@@ -127,7 +127,7 @@ public class Player1Ctrl : MonoBehaviour {
             im04.enabled = false;
             im05.enabled = false;
         }
-
+        Total = Vote01 + Vote02 + Vote03 + Vote04;
         foreach (CtrlScheme ctrl in ListOfPlayers)
         {
             if (Pressed == false)
@@ -204,8 +204,13 @@ public class Player1Ctrl : MonoBehaviour {
         Timer.Play = false;
         Pressed = false;
         Timer.timeLeft = 2;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForEndOfFrame();
+        Vote01 = 0;
+        Vote02 = 0;
+        Vote03 = 0;
+        Vote04 = 0;
         Total = 0;
+        StopCoroutine(TallyUp());
         StopCoroutine(Pause());
     }
 
@@ -243,13 +248,10 @@ public class Player1Ctrl : MonoBehaviour {
         {
             print("4 is bigga and equals " + Vote04);
         }
-        Total = Vote01 + Vote02 + Vote03 + Vote04;
+        
         yield return new WaitForEndOfFrame();
-        Vote01 = 0;
-        Vote02 = 0;
-        Vote03 = 0;
-        Vote04 = 0;
-        StopCoroutine(TallyUp());
+        
+        
     }
 
     
