@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Player1Ctrl : MonoBehaviour {
+public class PlayerPlatform : MonoBehaviour {
 
     public GameObject Player;
     public float Total;
@@ -32,7 +32,7 @@ public class Player1Ctrl : MonoBehaviour {
     public bool InputReady = false;
     public bool Pressed = false;
     public Rigidbody rigi;
-    public Timer Timer;
+    public TimerPlatform Timer;
     public Manager Mana;
     public Players PlayerCtrl;
     public List<CtrlScheme> ListOfPlayers;
