@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Player1Ctrl : MonoBehaviour {
+public class PlayerPanal : MonoBehaviour {
 
-    public GameObject PCtrl;
+    public GameObject PP;
     public float Total;
+    public float RPowerLvl;
+    public float LPowerLvl;
     public float MoveVal;
     private float Zval;
     private float Xval;
@@ -32,8 +34,8 @@ public class Player1Ctrl : MonoBehaviour {
     public bool InputReady = false;
     public bool Pressed = false;
     public Rigidbody rigi;
-    public Timer Timer;
-    public Manager Mana;
+    public TimerP TP;
+    public AttackManager Manager;
     public Players PlayerCtrl;
     public List<CtrlScheme> ListOfPlayers;
     
@@ -53,9 +55,9 @@ public class Player1Ctrl : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        PCtrl = gameObject;
-        rigi = PCtrl.GetComponent<Rigidbody>();
-        Pos = PCtrl.transform.position;
+        PP = gameObject;
+        rigi = PP.GetComponent<Rigidbody>();
+        Pos = PP.transform.position;
         Zval = Pos.z;
         Xval = Pos.x;
         
@@ -82,7 +84,7 @@ public class Player1Ctrl : MonoBehaviour {
         }*/
         Pos = new Vector3(Xval, 1.2f, Zval);
 
-        if (Timer.timeLeft > 0 && Timer.Ready == true)
+        if (TP.timeLeft > 0 && TP.Ready == true)
         {
             InputReady = true;
         }
@@ -91,7 +93,7 @@ public class Player1Ctrl : MonoBehaviour {
             InputReady = false;
         }
         
-        if (Timer.timeLeft <= 0)
+        if (TP.timeLeft <= 0)
         {
             Mathf.Max(Vote01, Vote02, Vote03, Vote04);
             //Player.transform.position = Pos;
@@ -201,9 +203,9 @@ public class Player1Ctrl : MonoBehaviour {
 
     IEnumerator Pause()
     { 
-        Timer.Play = false;
+        TP.Play = false;
         Pressed = false;
-        Timer.timeLeft = 2;
+        TP.timeLeft = 2;
         yield return new WaitForEndOfFrame();
         Vote01 = 0;
         Vote02 = 0;
@@ -232,26 +234,30 @@ public class Player1Ctrl : MonoBehaviour {
         {
             print("4 is bigga!!!");
         }*/
-        if (Vote01 > Vote04)
+        if (Vote01 > Vote03)
         {
             print("1 is bigga and equals " + Vote01);
+            LPowerLvl = Vote01;
         }
-        if (Vote02 >  Vote03)
+        if (Vote02 >  Vote04)
         {
             print("2 is bigga and equals " + Vote02);
+            RPowerLvl = Vote02;
         }
-        if (Vote03 > Vote02)
+        if (Vote03 > Vote01)
         {
             print("3 is bigga and equals " + Vote03);
+            LPowerLvl = Vote03;
         }
-        if (Vote04 > Vote01)
+        if (Vote04 > Vote02)
         {
             print("4 is bigga and equals " + Vote04);
+            RPowerLvl = Vote04;
         }
         
         yield return new WaitForEndOfFrame();
         
-        
+
     }
 
     

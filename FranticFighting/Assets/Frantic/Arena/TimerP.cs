@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Timer : MonoBehaviour {
+public class TimerP : MonoBehaviour {
     
     public float timeLeft = 2;
-    public Player1Ctrl PCtrl;
+    public PlayerPanal PP;
+    public AttackManager Manager;
     public Text CountText;
     public Text PromptText;
     public bool CountDown = false;
@@ -27,7 +28,7 @@ public class Timer : MonoBehaviour {
 	void Update () {
 
         CountText.text = "TimeLeft: " + timeLeft.ToString();
-        if (Ready == false && Live == true)
+        if (Ready == false && Live == true & Manager.Casted == false)
         {
             //PromptText.text = "Get Ready!";
             StartCoroutine(ReadyUp());
@@ -41,7 +42,7 @@ public class Timer : MonoBehaviour {
             
             //Debug.Log("Not Here");
         }
-        if (Play == true && PCtrl.Pressed == true)
+        if (Play == true && PP.Pressed == true)
         {
             //PromptText.text = "Please Input Command to Start";
             CountDown = true;
@@ -56,6 +57,7 @@ public class Timer : MonoBehaviour {
             Play = false;
             Ready = false;
             CountDown = false;
+            
         }
         //if (GStart.Play == true && Ready )
         
