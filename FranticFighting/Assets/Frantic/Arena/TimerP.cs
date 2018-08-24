@@ -28,8 +28,13 @@ public class TimerP : MonoBehaviour {
 	void Update () {
 
         CountText.text = "TimeLeft: " + timeLeft.ToString();
-        if (Ready == false && Live == true & Manager.Casted == false)
+        if (Ready == false && Live == true && Manager.Casted == false)
         {
+            StartCoroutine(Spell());
+        }
+        if (Ready == false && Live == true && Manager.Casted == true)
+        {
+            StopCoroutine(Spell());
             //PromptText.text = "Get Ready!";
             StartCoroutine(ReadyUp());
         }
@@ -74,16 +79,14 @@ public class TimerP : MonoBehaviour {
         Live = true;
         StopCoroutine(ReadyUp());
     }
-    /*IEnumerator Action()
+    IEnumerator Spell()
     {
-        PromptText.text = "You Move";
-        yield return new WaitForSecondsRealtime(2f);
-        PromptText.text = "You Moved";
-        yield return new WaitForSecondsRealtime(2f);
-        PromptText.text = "Please Input Command to Start";
-        timeLeft = 2;
-        
-    }*/
+        Debug.Log("WOOOOOOW");
+        PromptText.text = "Casting";
+        Manager.Casting = true;
+        yield return new WaitForSecondsRealtime(3f);
+                
+    }
 
 
 }

@@ -4,44 +4,83 @@ using UnityEngine;
 
 public class MasterParticleCtrl : MonoBehaviour {
 
-
+    public PlayerPanal PP;
     public ParticleSystem Part01;
     public ParticleSystem Part02;
-    public ParticleSystem.EmissionModule Emission;
-    public ParticleSystem.NoiseModule Noise;
-    public float Partlvl;
-    public float MaxPart;
-    public int CurrentMax;
-    public float EmRate;
-    public float CurrentEm;
-    public float NoiseStr;
-    public float CurrentNoise;
 
+    public float Partlvl;
+    
+    public int Particle01;
+    public int Particle02;
+    public float MaxPart01;
+    public float MaxPart02;
+    public float Emission01;
+    public float Emission02;
+    public float EmRate01;
+    public float EmRate02;
+    public float Noise01;
+    public float Noise02;
+    public float NoiseStr01;
+    public float NoiseStr02;
+
+
+
+    ParticleSystem.MainModule _Main01;
+    ParticleSystem.EmissionModule _Emission01;
+    ParticleSystem.NoiseModule _Noise01;
+
+    ParticleSystem.MainModule _Main02;
+    ParticleSystem.EmissionModule _Emission02;
+    ParticleSystem.NoiseModule _Noise02;
     // Use this for initialization
     void Start () {
 
-        //Part01.emissionRate = PartMax;
+        //PP = player
         
-        Emission = Part01.emission;
-        Noise = Part01.noise;
-        CurrentMax = Part01.maxParticles;
-        CurrentEm = Part01.emissionRate;
-        CurrentNoise = Noise.strength.constant;
+        _Main01 = Part01.main;
+        _Emission01 = Part01.emission;
+        _Noise01 = Part01.noise;
 
-	}
+        _Main02 = Part02.main;
+        _Emission02 = Part02.emission;
+        _Noise02 = Part02.noise;
+
+        Particle01 = _Main01.maxParticles;
+        Emission01 = _Emission01.rateOverTimeMultiplier;
+        Noise01 = _Noise01.strength.constant;
+        Particle02 = _Main02.maxParticles;
+        Emission02 = _Emission02.rateOverTimeMultiplier;
+        Noise02 = _Noise02.strength.constant;
+
+
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
-        MaxPart = Partlvl * CurrentMax;
-        EmRate = Partlvl * CurrentEm;
-        NoiseStr = Partlvl * CurrentNoise * 2;
-        if (Input.GetKey("b"))
-        {
+        //MaxPart01 = Partlvl * Particle01;
+        Partlvl = PP.RPowerLvl * 2;
 
-            Part01.maxParticles = Mathf.RoundToInt(MaxPart);
-            Noise.strength = NoiseStr;
-            Emission.rate = EmRate;
+        EmRate01 = Partlvl * Emission01;
+        NoiseStr01 = Partlvl * Noise01;
+        //MaxPart02 = Partlvl * Particle02;
+        EmRate02 = Partlvl * Emission02;
+        NoiseStr02 = Partlvl * Noise02;
+        if (Input.GetKeyUp(KeyCode.B))
+        {
+            Debug.Log("WOOOOOOW");
+            //MaxPart = CurrentPart;
+            //CurrentPart = Mathf.RoundToInt(MaxPart);
+            //EmRate = CurrentEm;
+            //CurrentEm = EmRate;
+            //NoiseStr = CurrentNoise;
+            //CurrentNoise = NoiseStr;
+
+            _Noise01.strength = NoiseStr01;
+            _Emission01.rateOverTime = EmRate01;
+            _Noise02.strength = NoiseStr01;
+            _Emission02.rateOverTime = EmRate02;
         }
-		
-	}
+
+    }
 }

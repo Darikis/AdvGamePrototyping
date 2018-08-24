@@ -7,9 +7,10 @@ public class AttackManager : MonoBehaviour {
 
     public PlayerPanal PP;
     public TimerP TP;
-    public bool Casted = false;
-    public MasterParticleCtrl Part;
-    //public Transform SpellTransform;
+    public bool Casting;
+    public bool Casted;
+    ///public MasterParticleCtrl Part;
+    public GameObject SpellTransform;
     
     
 
@@ -22,21 +23,19 @@ public class AttackManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        if (TP.Ready == false)
+        if (TP.timeLeft <= 0 && Casting == true && Casted == false)
         {
+            
+
+            Instantiate(SpellTransform, transform.position, Quaternion.identity);
             Casted = true;
+            
         }
 
-
-        if (Casted == true)
+        if (Input.GetKey(KeyCode.Space) && TP.timeLeft <= 0 && Casting == true && Casted == false)
         {
-            PP.RPowerLvl = Part.Partlvl;
-            GameObject Spell = (GameObject)Instantiate(Resources.Load("PS_Orb"));
-            Casted = false;
-        }
-        if (Input.GetKey("Space"))
-        {
-            Casted = false;
+            Instantiate(SpellTransform, transform.position, Quaternion.identity);
+            Casted = true;
         }
 	}
 }
