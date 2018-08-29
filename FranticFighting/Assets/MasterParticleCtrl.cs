@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class MasterParticleCtrl : MonoBehaviour {
 
-    public PlayerPanal PP;
+    //public PlayerPanal PP;
     public ParticleSystem Part01;
     public ParticleSystem Part02;
-
+    //public GameObject Owner;
+    //public string OwnerName;
     public float Partlvl;
     
     public int Particle01;
@@ -25,17 +26,18 @@ public class MasterParticleCtrl : MonoBehaviour {
 
 
 
-    ParticleSystem.MainModule _Main01;
-    ParticleSystem.EmissionModule _Emission01;
-    ParticleSystem.NoiseModule _Noise01;
+    public ParticleSystem.MainModule _Main01;
+    public ParticleSystem.EmissionModule _Emission01;
+    public ParticleSystem.NoiseModule _Noise01;
 
-    ParticleSystem.MainModule _Main02;
-    ParticleSystem.EmissionModule _Emission02;
-    ParticleSystem.NoiseModule _Noise02;
+    public ParticleSystem.MainModule _Main02;
+    public ParticleSystem.EmissionModule _Emission02;
+    public ParticleSystem.NoiseModule _Noise02;
     // Use this for initialization
+    
     void Start () {
 
-        //PP = player
+        //PP = Player;
         
         _Main01 = Part01.main;
         _Emission01 = Part01.emission;
@@ -58,15 +60,21 @@ public class MasterParticleCtrl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        //Owner = GameObject.FindWithTag(OwnerName);
         //MaxPart01 = Partlvl * Particle01;
-        Partlvl = PP.RPowerLvl * 2;
+        //Partlvl = PP.RPowerLvl * 2;
 
         EmRate01 = Partlvl * Emission01;
         NoiseStr01 = Partlvl * Noise01;
         //MaxPart02 = Partlvl * Particle02;
         EmRate02 = Partlvl * Emission02;
         NoiseStr02 = Partlvl * Noise02;
-        if (Input.GetKeyUp(KeyCode.B))
+        _Noise01.strength = NoiseStr01;
+        _Emission01.rateOverTime = EmRate01;
+        _Noise02.strength = NoiseStr01;
+        _Emission02.rateOverTime = EmRate02;
+        //Debug.Log("WOOOOOOW");
+        if (Input.GetKeyUp(KeyCode.Space))
         {
             Debug.Log("WOOOOOOW");
             //MaxPart = CurrentPart;

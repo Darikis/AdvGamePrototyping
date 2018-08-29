@@ -81,7 +81,7 @@ public class TimerP : MonoBehaviour {
     }
     IEnumerator Spell()
     {
-        Debug.Log("WOOOOOOW");
+        Debug.Log("KaBOOOM");
         PromptText.text = "Casting";
         Manager.Casting = true;
         yield return new WaitForSecondsRealtime(3f);

@@ -72,7 +72,7 @@ GameObject:
   - component: {fileID: 4726633876617000}
   - component: {fileID: 114050544436216454}
   m_Layer: 0
-  m_Name: PS_Orb
+  m_Name: PS_OrbRed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -175,7 +175,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87f9d9daf740fdb4980107ee76cfa24e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PP: {fileID: 0}
   Part01: {fileID: 198067318931189936}
   Part02: {fileID: 198460939036025260}
   Partlvl: 1
@@ -377,7 +376,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.5853553, g: 1, b: 0, a: 1}
+      maxColor: {r: 1, g: 0, b: 0.18578339, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -1403,7 +1402,7 @@ ParticleSystem:
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 0}
-        key1: {r: 0.024082558, g: 0.5188679, b: 0, a: 1}
+        key1: {r: 0.5849056, g: 0.0082769515, b: 0.21376872, a: 1}
         key2: {r: 1, g: 1, b: 1, a: 1}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -4910,7 +4909,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0, g: 1, b: 0.10007763, a: 1}
+      maxColor: {r: 1, g: 0.34757447, b: 0, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -9442,8 +9441,8 @@ ParticleSystem:
     startColor:
       serializedVersion: 2
       minMaxState: 2
-      minColor: {r: 0.5726954, g: 1, b: 0.3066038, a: 0.13333334}
-      maxColor: {r: 0.36169454, g: 0.6037736, b: 0.4339585, a: 0.1254902}
+      minColor: {r: 1, g: 0.30588233, b: 0.3753983, a: 0.13333334}
+      maxColor: {r: 0.6039216, g: 0.45315126, b: 0.36078432, a: 0.1254902}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -15002,7 +15001,7 @@ ParticleSystem:
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 0}
-        key1: {r: 0.0802089, g: 1, b: 0, a: 1}
+        key1: {r: 1, g: 0.15259548, b: 0, a: 1}
         key2: {r: 1, g: 1, b: 1, a: 1}
         key3: {r: 1, g: 1, b: 1, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
