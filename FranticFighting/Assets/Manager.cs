@@ -5,11 +5,11 @@ using UnityEngine.UI;
 
 public class Manager : MonoBehaviour {
 
-    public Image Input1;
-    public Image Input2;
-    public Image Input3;
-    public Image Input4;
-    public Image Input5;
+
+    public PlayerPanal P1;
+    public PlayerPanal P2;
+    public bool Go;
+
     // Use this for initialization
     void Start () {
 		
@@ -17,6 +17,9 @@ public class Manager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		if (P1.TotaledUp == true && P2.TotaledUp == true)
+        {
+            Go = true;
+        }
 	}
 }

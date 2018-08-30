@@ -28,28 +28,28 @@ public class TimerP : MonoBehaviour {
 	void Update () {
 
         CountText.text = "TimeLeft: " + timeLeft.ToString();
-        if (Ready == false && Live == true && Manager.Casted == false)
+        if (Ready == false && Live == true && Manager.Casting == true && Manager.Casted == true)
         {
             StartCoroutine(Spell());
         }
-        if (Ready == false && Live == true && Manager.Casted == true)
+        /*if (Manager.TurnOver == true)
+        {
+            StartCoroutine(PleaseWait());
+        }*/
+        if (Ready == false && Live == true && Manager.Casting == false && Manager.TurnOver == true)
         {
             StopCoroutine(Spell());
             //PromptText.text = "Get Ready!";
             StartCoroutine(ReadyUp());
         }
-        if (Ready == true && timeLeft > 0 )
+        if (Ready == true && timeLeft > 0 && Manager.TurnOver == false)
         {
             PromptText.color = Action;
             PromptText.text = "Please Input Command to Start";
-            //StopCoroutine(ReadyUp());
-            Play = true;
-            
-            //Debug.Log("Not Here");
+            Play = true; 
         }
         if (Play == true && PP.Pressed == true)
         {
-            //PromptText.text = "Please Input Command to Start";
             CountDown = true;
         }
         if (timeLeft > 0 && CountDown == true)
@@ -62,13 +62,14 @@ public class TimerP : MonoBehaviour {
             Play = false;
             Ready = false;
             CountDown = false;
-            
+            Manager.Casting = true;
         }
         //if (GStart.Play == true && Ready )
         
     }
     IEnumerator ReadyUp()
     {
+        Debug.Log("Ready!");
         PromptText.color = Default;
         PromptText.text = "Get Ready!";
         yield return new WaitForSeconds(1f);
@@ -77,15 +78,32 @@ public class TimerP : MonoBehaviour {
         //yield return new WaitForSeconds(1f);
         Ready = true;
         Live = true;
+        Manager.TurnOver = false;
+        Manager.Casted = false;
+        Manager.LeftMan.Casted = false;
+        Manager.RightMan.Casted = false;
+        PP.Left = false;
+        PP.Right = false;
+        PP.RightAtk = false;
+        PP.RightDef = false;
+        PP.LeftAtk = false;
+        PP.LeftDef = false;
         StopCoroutine(ReadyUp());
+    }
+    IEnumerator PleaseWait()
+    {
+        PromptText.text = PP.AttackTextPrompt;
+
+        yield return new WaitForEndOfFrame();
+
     }
     IEnumerator Spell()
     {
         Debug.Log("KaBOOOM");
-        PromptText.text = "Casting";
-        Manager.Casting = true;
+        PromptText.text = PP.AttackTextPrompt;
+        //PromptText.text = "Casting";
         yield return new WaitForSecondsRealtime(3f);
-                
+        Manager.Casting = false;        
     }
 
 

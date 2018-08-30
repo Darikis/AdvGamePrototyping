@@ -7,16 +7,21 @@ public class AttackManager : MonoBehaviour {
 
     public PlayerPanal PP;
     public TimerP TP;
+    public SpellManager LeftMan;
+    public SpellManager RightMan;
     public bool Casting;
     public bool Casted;
-    public float SpellLvl;
-    ///public MasterParticleCtrl Part;
-    public GameObject Spell01Transform;
-    public GameObject Spell02transform;
-    public GameObject Action;
-    public Animator Anim;
-    //public GameObject Owner;
-    //public string OwnerTag;
+    public bool TurnOver;
+    //public float SpellLvlR;
+    //public float SpellLvlL;
+    //public GameObject RightMan;
+    //public GameObject LeftMan;
+    //public GameObject Spell01Transform;
+    //public GameObject Spell02transform;
+    //public GameObject RightSpell;
+    //public GameObject LeftSpell;
+    //public Animator Anim;
+    
     
     
 
@@ -25,30 +30,33 @@ public class AttackManager : MonoBehaviour {
 	void Start () {
         //Owner = GameObject.FindGameObjectWithTag("Player1");
         //Anim = GetComponent<Animator>();
+        
     }
 	
 	// Update is called once per frame
 	void Update () {
         
-        if (Casting == true && Casted == false)
+        /*if (Casting == true && Casted == false)
         {
-            SpellLvl = PP.RPowerLvl;
-            Action = Instantiate(Spell01Transform, transform.position, Quaternion.identity);
-            Action.GetComponent<MasterParticleCtrl>().Partlvl = SpellLvl;
-            Action.transform.parent = gameObject.transform;
+            SpellLvlR = PP.RPowerLvl;
+            RightSpell = Instantiate(Spell01Transform, transform.position, Quaternion.identity);
+            RightSpell.GetComponent<MasterParticleCtrl>().Partlvl = SpellLvlR;
+            RightSpell.transform.parent = gameObject.transform;
             StartCoroutine(Attack());
             Casted = true;
-
-            
         }
-
-        /*if (Input.GetKey(KeyCode.Space) && TP.timeLeft <= 0 && Casting == true && Casted == false)
+        if (Casting == true && Casted == false)
         {
-            Instantiate(SpellTransform, transform.position, Quaternion.identity);
+            SpellLvlL = PP.LPowerLvl;
+            LeftSpell = Instantiate(Spell01Transform, transform.position, Quaternion.identity);
+            LeftSpell.GetComponent<MasterParticleCtrl>().Partlvl = SpellLvlL;
+            LeftSpell.transform.parent = gameObject.transform;
+            StartCoroutine(Attack());
             Casted = true;
         }*/
-	}
-    IEnumerator Attack()
+
+    }
+    /*IEnumerator Attack()
     {
         
         
@@ -60,9 +68,18 @@ public class AttackManager : MonoBehaviour {
 
         //yield return new WaitForSeconds(Anim.GetCurrentAnimatorStateInfo(0).length + Anim.GetCurrentAnimatorStateInfo(0).normalizedTime);
         Anim.SetBool("IsAttacking?", false);
-        GameObject.Destroy(Action);
+        if (PP.Left == true)
+        {
+            GameObject.Destroy(LeftMan.LeftSpell);
+            LeftMan.LeftSpell = null;
+        }
+        if (PP.Right == true)
+        {
+            GameObject.Destroy(RightMan.RightSpell);
+            RightMan.RightSpell = null;
+        }
+        //Casting = false;
+        TurnOver = true;
         StopCoroutine(Attack());
-
-
-    }
+    }*/
 }

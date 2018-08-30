@@ -12,19 +12,13 @@ public class PlayerPanal : MonoBehaviour {
     public float MoveVal;
     private float Zval;
     private float Xval;
-    /*public int[] VOTES;
-    public enum Options
-    {
-        Vote1,
-        Vote2,
-        Vote3,
-        Vote4,
-        numEntries
-    }*/
     public float Vote01;
     public float Vote02;
     public float Vote03;
     public float Vote04;
+    public string AttackTextL;
+    public string AttackTextR;
+    public string AttackTextPrompt;
     public Image im01;
     public Image im02;
     public Image im03;
@@ -33,9 +27,16 @@ public class PlayerPanal : MonoBehaviour {
     public Vector3 Pos;
     public bool InputReady = false;
     public bool Pressed = false;
+    public bool Right;
+    public bool Left;
+    public bool RightAtk;
+    public bool LeftAtk;
+    public bool RightDef;
+    public bool LeftDef;
+    public bool TotaledUp;
     public Rigidbody rigi;
     public TimerP TP;
-    public AttackManager Manager;
+    public SpellManager Manager;
     public Players PlayerCtrl;
     public List<CtrlScheme> ListOfPlayers;
     
@@ -129,7 +130,9 @@ public class PlayerPanal : MonoBehaviour {
             im04.enabled = false;
             im05.enabled = false;
         }
+
         Total = Vote01 + Vote02 + Vote03 + Vote04;
+
         foreach (CtrlScheme ctrl in ListOfPlayers)
         {
             if (Pressed == false)
@@ -149,37 +152,29 @@ public class PlayerPanal : MonoBehaviour {
                 MoveRight();
                 Pressed = true;
                 ctrl.ReadyToAct = false;
-                
             }
             if (Input.GetKeyDown(ctrl.B3) && InputReady == true && ctrl.ReadyToAct == true)
             {
                 MoveLeft();
                 Pressed = true;
                 ctrl.ReadyToAct = false;
-                
             }
             if (Input.GetKeyDown(ctrl.B4) && InputReady == true && ctrl.ReadyToAct == true)
             {
                 MoveBackward();
                 Pressed = true;
                 ctrl.ReadyToAct = false;
-                
             }
             /*if (Pressed == true)
-            {
-                ctrl.img.enabled = true;
-            }
+            {ctrl.img.enabled = true;}
             else
-            {
-                ctrl.img.enabled = false;
-            }*/
+            {ctrl.img.enabled = false;}*/
         }
     }
     void MoveForward()
     {
         Zval = Zval + MoveVal;
         Vote01 = Vote01 + 1;
-        
         //rigi.AddForce(Vector3.forward * RunSpeed, ForceMode.Impulse);
     }
     void MoveBackward()
@@ -236,27 +231,67 @@ public class PlayerPanal : MonoBehaviour {
         }*/
         if (Vote01 > Vote03)
         {
-            print("1 is bigga and equals " + Vote01);
+            //print("1 is bigga and equals " + Vote01);
             LPowerLvl = Vote01;
+            LeftAtk = true;
+            Left = true;
+            AttackTextL = "Level " + LPowerLvl + " Left Attack!";
         }
         if (Vote02 >  Vote04)
         {
-            print("2 is bigga and equals " + Vote02);
+            //print("2 is bigga and equals " + Vote02);
             RPowerLvl = Vote02;
+            RightAtk = true;
+            Right = true;
+            AttackTextR = "Level " + RPowerLvl + " Right Attack!";
         }
         if (Vote03 > Vote01)
         {
-            print("3 is bigga and equals " + Vote03);
+            //print("3 is bigga and equals " + Vote03);
             LPowerLvl = Vote03;
+            LeftDef = true;
+            Left = true;
+            AttackTextL = "Level " + LPowerLvl + " Left Defense!";
         }
         if (Vote04 > Vote02)
         {
-            print("4 is bigga and equals " + Vote04);
+            //print("4 is bigga and equals " + Vote04);
             RPowerLvl = Vote04;
+            RightDef = true;
+            Right = true;
+            AttackTextR = "Level " + RPowerLvl + " Right Defense!";
+        }
+        /*if (LeftAtk == true && LeftDef == false)
+        {
+            AttackTextPrompt = AttackTextL;
+        }
+        if (LeftDef == true && LeftAtk == false)
+        {
+            AttackTextPrompt = AttackTextL;
+        }
+        if (RightAtk == true && RightDef == false)
+        {
+            AttackTextPrompt = AttackTextR;
+        }
+        if (RightDef == true && RightAtk == false)
+        {
+            AttackTextPrompt = AttackTextR;
+        }*/
+        if (Right == true && Left == true)
+        {
+            AttackTextPrompt = AttackTextL + " & " + AttackTextR;
+        }
+        if (Right == true && Left == false)
+        {
+            AttackTextPrompt = AttackTextR;
+        }
+        if (Left == true && Right == false)
+        {
+            AttackTextPrompt = AttackTextL;
         }
         
         yield return new WaitForSeconds(1);
-        
+        TotaledUp = true;
 
     }
 
