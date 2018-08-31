@@ -40,7 +40,8 @@ public class SpellManager : MonoBehaviour {
                 AttackSpell = Instantiate(Spell01Transform, Manager.RightMan.transform.position, Quaternion.identity);
                 AttackSpell.GetComponent<MasterParticleCtrl>().Partlvl = SpellLvlR;
                 AttackSpell.transform.parent = Manager.RightMan.gameObject.transform;
-                StartCoroutine(CastingRightSide());
+                //StartCoroutine(CastingRightSide());
+                StartCoroutine(CommenceAttack());
                 Casted = true;
             }
 
@@ -51,7 +52,8 @@ public class SpellManager : MonoBehaviour {
                 DefenseSpell = Instantiate(Spell02transform, Manager.RightMan.transform.position, Quaternion.identity);
                 DefenseSpell.GetComponent<MasterParticleCtrl>().Partlvl = SpellLvlR;
                 DefenseSpell.transform.parent = Manager.RightMan.gameObject.transform;
-                StartCoroutine(CastingRightSide());
+                //StartCoroutine(CastingRightSide());
+                StartCoroutine(CommenceAttack());
                 Casted = true;
             }
         }
@@ -64,7 +66,8 @@ public class SpellManager : MonoBehaviour {
                 AttackSpell = Instantiate(Spell01Transform, Manager.LeftMan.transform.position, Quaternion.identity);
                 AttackSpell.GetComponent<MasterParticleCtrl>().Partlvl = SpellLvlL;
                 AttackSpell.transform.parent = Manager.LeftMan.gameObject.transform;
-                StartCoroutine(CastingLeftSide());
+                //StartCoroutine(CastingLeftSide());
+                StartCoroutine(CommenceAttack());
                 Casted = true;
             }
 
@@ -75,7 +78,8 @@ public class SpellManager : MonoBehaviour {
                 DefenseSpell = Instantiate(Spell02transform, Manager.LeftMan.transform.position, Quaternion.identity);
                 DefenseSpell.GetComponent<MasterParticleCtrl>().Partlvl = SpellLvlL;
                 DefenseSpell.transform.parent = Manager.LeftMan.gameObject.transform;
-                StartCoroutine(CastingLeftSide());
+                //StartCoroutine(CastingLeftSide());
+                StartCoroutine(CommenceAttack());
                 Casted = true;
             }
         }
@@ -83,7 +87,35 @@ public class SpellManager : MonoBehaviour {
 
 
     }
-    IEnumerator CastingRightSide()
+
+    IEnumerator CommenceAttack()
+    {
+        Anim.SetBool("IsAttacking?", true);
+        yield return new WaitForSeconds(3.5f);
+        Anim.SetBool("IsAttacking?", false);
+        Master.P1_TakeDamage = true;
+        Master.P2_TakeDamage = true;
+        if (PP.Left == true)
+        {
+            GameObject.Destroy(AttackSpell);
+            AttackSpell = null;
+            GameObject.Destroy(DefenseSpell);
+            DefenseSpell = null;
+        }
+        if (PP.Right == true)
+        {
+            GameObject.Destroy(AttackSpell);
+            AttackSpell = null;
+            GameObject.Destroy(DefenseSpell);
+            DefenseSpell = null;
+        }
+        Manager.TurnOver = true;
+        Manager.Casted = true;
+        PP.TotaledUp = false;
+        Master.Go = false;
+        StopCoroutine(CommenceAttack());
+    }
+    /*IEnumerator CastingRightSide()
     {
         Anim.SetBool("IsAttacking?", true);
         yield return new WaitForSeconds(3.5f);
@@ -132,5 +164,5 @@ public class SpellManager : MonoBehaviour {
         Master.Go = false;
         PP.TotaledUp = false;
         StopCoroutine(CastingLeftSide());
-    }
+    }*/
 }

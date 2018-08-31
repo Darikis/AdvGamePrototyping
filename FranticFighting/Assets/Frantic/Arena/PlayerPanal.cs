@@ -6,19 +6,18 @@ using UnityEngine.UI;
 public class PlayerPanal : MonoBehaviour {
 
     public GameObject PP;
+    public GameObject Enemy;
     public float Total;
     public float RPowerLvl;
     public float LPowerLvl;
-    public float MoveVal;
-    private float Zval;
-    private float Xval;
     public float Vote01;
     public float Vote02;
     public float Vote03;
     public float Vote04;
+    public float HealthTotal;
+    public string AttackTextPrompt;
     public string AttackTextL;
     public string AttackTextR;
-    public string AttackTextPrompt;
     public Image im01;
     public Image im02;
     public Image im03;
@@ -36,7 +35,7 @@ public class PlayerPanal : MonoBehaviour {
     public bool TotaledUp;
     public Rigidbody rigi;
     public TimerP TP;
-    public SpellManager Manager;
+    //public SpellManager Manager;
     public Players PlayerCtrl;
     public List<CtrlScheme> ListOfPlayers;
     
@@ -58,32 +57,11 @@ public class PlayerPanal : MonoBehaviour {
 	void Start () {
         PP = gameObject;
         rigi = PP.GetComponent<Rigidbody>();
-        Pos = PP.transform.position;
-        Zval = Pos.z;
-        Xval = Pos.x;
-        
-
-        
-
-
-        //Spot = Player.transform;
-        //Spot.position = new Vector3(Xval, 1f, Zval);
-
+        TotaledUp = false;
     }
 	
 	// Update is called once per frame
 	void Update () {
-
-        /*VOTES = new int[(int)Options.numEntries];
-        VOTES[(int)Options.Vote1] = Vote01;
-        VOTES[(int)Options.Vote2] = Vote02;
-        VOTES[(int)Options.Vote3] = Vote03;
-        VOTES[(int)Options.Vote4] = Vote04;
-        for (int i = 0, i< (int)Options.numEntries; i++)
-        {
-            if(Options[i]>)
-        }*/
-        Pos = new Vector3(Xval, 1.2f, Zval);
 
         if (TP.timeLeft > 0 && TP.Ready == true)
         {
@@ -173,25 +151,25 @@ public class PlayerPanal : MonoBehaviour {
     }
     void MoveForward()
     {
-        Zval = Zval + MoveVal;
+        //Zval = Zval + MoveVal;
         Vote01 = Vote01 + 1;
         //rigi.AddForce(Vector3.forward * RunSpeed, ForceMode.Impulse);
     }
     void MoveBackward()
     {
-        Zval = Zval - MoveVal;
+        //Zval = Zval - MoveVal;
         Vote04 = Vote04 + 1; 
         //rigi.AddForce(Vector3.back * RunSpeed, ForceMode.Impulse);
     }
     void MoveRight()
     {
-        Xval = Xval + MoveVal;
+        //Xval = Xval + MoveVal;
         Vote02 = Vote02 + 1;
         //rigi.AddForce(Vector3.right * RunSpeed, ForceMode.Impulse);
     }
     void MoveLeft()
     {
-        Xval = Xval - MoveVal;
+        //Xval = Xval - MoveVal;
         Vote03 = Vote03 + 1; 
         //rigi.AddForce(Vector3.left * RunSpeed, ForceMode.Impulse);
     }
@@ -291,8 +269,9 @@ public class PlayerPanal : MonoBehaviour {
         }
         
         yield return new WaitForSeconds(1);
+        Debug.Log("HERE");
         TotaledUp = true;
-
+        
     }
 
     
