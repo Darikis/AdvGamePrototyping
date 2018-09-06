@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.40022635, g: 0.4195371, b: 0.4183935, a: 1}
+  m_IndirectSpecularColor: {r: 0.40022674, g: 0.41953734, b: 0.41839305, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -244,14 +244,22 @@ MonoBehaviour:
   P2_TP: {fileID: 1828867855}
   P1_CurrentHP: 0
   P2_CurrentHP: 0
-  P1_Damage: 0
-  P2_Damage: 0
+  P1_DamageL: 0
+  P1_DamageR: 0
+  P2_DamageL: 0
+  P2_DamageR: 0
   P1_TakeDamage: 0
   P2_TakeDamage: 0
+  P1_TakeDamageR: 0
+  P1_TakeDamageL: 0
+  P2_TakeDamageR: 0
+  P2_TakeDamageL: 0
   Go: 0
   CanTakeDmg: 0
   P1_HealthBar: {fileID: 1048282231}
   P2_HealthBar: {fileID: 505348710}
+  P1_ATKman: {fileID: 1752329158}
+  P2_ATKman: {fileID: 240582843}
 --- !u!4 &45356985
 Transform:
   m_ObjectHideFlags: 0
@@ -1317,12 +1325,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PP: {fileID: 1356869998}
   TP: {fileID: 1828867855}
+  OwnerIsP1: 0
+  OwnerIsP2: 0
+  ATKlvlL: 0
+  DEFlvlL: 0
+  ATKlvlR: 0
+  DEFlvlR: 0
   LeftMan: {fileID: 1033104172}
   RightMan: {fileID: 474983257}
   Casting: 0
   Casted: 0
   TurnOver: 0
   Master: {fileID: 45356984}
+  AttackingR: 0
+  AttackingL: 0
+  DefendingR: 0
+  DefendingL: 0
 --- !u!1001 &253895593
 Prefab:
   m_ObjectHideFlags: 0
@@ -11881,12 +11899,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PP: {fileID: 1442093181}
   TP: {fileID: 138008853}
+  OwnerIsP1: 0
+  OwnerIsP2: 0
+  ATKlvlL: 0
+  DEFlvlL: 0
+  ATKlvlR: 0
+  DEFlvlR: 0
   LeftMan: {fileID: 1130395371}
   RightMan: {fileID: 2113315673}
   Casting: 0
   Casted: 0
   TurnOver: 0
   Master: {fileID: 45356984}
+  AttackingR: 0
+  AttackingL: 0
+  DefendingR: 0
+  DefendingL: 0
 --- !u!1001 &1795879768
 Prefab:
   m_ObjectHideFlags: 0

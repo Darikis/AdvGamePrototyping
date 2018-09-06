@@ -12,6 +12,8 @@ public class SpellManager : MonoBehaviour {
     public bool LeftManager;
     //public bool Casting;
     public bool Casted;
+    //public bool OnAttack;
+    //public bool OnDefense;
     //public bool TurnOver;
     public float SpellLvlR;
     public float SpellLvlL;
@@ -20,11 +22,14 @@ public class SpellManager : MonoBehaviour {
     public GameObject AttackSpell;
     public GameObject DefenseSpell;
     public Animator Anim;
+    //public AttackManager P1Man;
+    //public AttackManager P2Man;
 
     // Use this for initialization
     void Start()
     {
-
+        //Master.P1_ATKman = P1Man;
+        //Master.P2_ATKman = P2Man;
     }
 
     // Update is called once per frame
@@ -36,24 +41,28 @@ public class SpellManager : MonoBehaviour {
             if (Manager.Casting == true && Casted == false && PP.RightAtk == true && Master.Go == true)
             {
                 SpellLvlR = PP.RPowerLvl;
+                Manager.ATKlvlR = SpellLvlR;
                 Manager.Casted = true;
                 AttackSpell = Instantiate(Spell01Transform, Manager.RightMan.transform.position, Quaternion.identity);
                 AttackSpell.GetComponent<MasterParticleCtrl>().Partlvl = SpellLvlR;
                 AttackSpell.transform.parent = Manager.RightMan.gameObject.transform;
                 //StartCoroutine(CastingRightSide());
                 StartCoroutine(CommenceAttack());
+                //OnAttack = true;
                 Casted = true;
             }
 
             if (Manager.Casting == true && Casted == false && PP.RightDef == true && Master.Go == true)
             {
                 SpellLvlR = PP.RPowerLvl;
+                Manager.DEFlvlR = SpellLvlR;
                 Manager.Casted = true;
                 DefenseSpell = Instantiate(Spell02transform, Manager.RightMan.transform.position, Quaternion.identity);
                 DefenseSpell.GetComponent<MasterParticleCtrl>().Partlvl = SpellLvlR;
                 DefenseSpell.transform.parent = Manager.RightMan.gameObject.transform;
                 //StartCoroutine(CastingRightSide());
-                StartCoroutine(CommenceAttack());
+                StartCoroutine(CommenceDefend());
+                //OnDefense = true;
                 Casted = true;
             }
         }
@@ -62,29 +71,31 @@ public class SpellManager : MonoBehaviour {
             if (Manager.Casting == true && Casted == false && PP.LeftAtk == true && Master.Go == true)
             {
                 SpellLvlL = PP.LPowerLvl;
+                Manager.ATKlvlL = SpellLvlL;
                 Manager.Casted = true;
                 AttackSpell = Instantiate(Spell01Transform, Manager.LeftMan.transform.position, Quaternion.identity);
                 AttackSpell.GetComponent<MasterParticleCtrl>().Partlvl = SpellLvlL;
                 AttackSpell.transform.parent = Manager.LeftMan.gameObject.transform;
                 //StartCoroutine(CastingLeftSide());
                 StartCoroutine(CommenceAttack());
+                //OnAttack = true;
                 Casted = true;
             }
 
             if (Manager.Casting == true && Casted == false && PP.LeftDef == true && Master.Go == true)
             {
                 SpellLvlL = PP.LPowerLvl;
+                Manager.ATKlvlL = SpellLvlL;
                 Manager.Casted = true;
                 DefenseSpell = Instantiate(Spell02transform, Manager.LeftMan.transform.position, Quaternion.identity);
                 DefenseSpell.GetComponent<MasterParticleCtrl>().Partlvl = SpellLvlL;
                 DefenseSpell.transform.parent = Manager.LeftMan.gameObject.transform;
                 //StartCoroutine(CastingLeftSide());
-                StartCoroutine(CommenceAttack());
+                StartCoroutine(CommenceDefend());
+                //OnDefense = true;
                 Casted = true;
             }
         }
-
-
 
     }
 
@@ -93,28 +104,58 @@ public class SpellManager : MonoBehaviour {
         Anim.SetBool("IsAttacking?", true);
         yield return new WaitForSeconds(3.5f);
         Anim.SetBool("IsAttacking?", false);
-        Master.P1_TakeDamage = true;
-        Master.P2_TakeDamage = true;
+        //Master.P1_TakeDamage = true;
+        //Master.P2_TakeDamage = true;
         if (PP.Left == true)
         {
             GameObject.Destroy(AttackSpell);
             AttackSpell = null;
-            GameObject.Destroy(DefenseSpell);
-            DefenseSpell = null;
+            /*GameObject.Destroy(DefenseSpell);
+            DefenseSpell = null;*/
         }
         if (PP.Right == true)
         {
             GameObject.Destroy(AttackSpell);
             AttackSpell = null;
+            /*GameObject.Destroy(DefenseSpell);
+            DefenseSpell = null;*/
+        }
+        Manager.TurnOver = true;
+        Manager.Casted = true;
+        PP.TotaledUp = false;
+        //Master.Go = false;
+        StopCoroutine(CommenceAttack());
+    }
+
+
+    IEnumerator CommenceDefend()
+    {
+        Anim.SetBool("IsDefending?", true);
+        yield return new WaitForSeconds(3.5f);
+        Anim.SetBool("IsDefending?", false);
+        //Master.P1_TakeDamage = true;
+        //Master.P2_TakeDamage = true;
+        if (PP.Left == true)
+        {
+            /*GameObject.Destroy(AttackSpell);
+            AttackSpell = null;*/
+            GameObject.Destroy(DefenseSpell);
+            DefenseSpell = null;
+        }
+        if (PP.Right == true)
+        {
+            /*GameObject.Destroy(AttackSpell);
+            AttackSpell = null;*/
             GameObject.Destroy(DefenseSpell);
             DefenseSpell = null;
         }
         Manager.TurnOver = true;
         Manager.Casted = true;
         PP.TotaledUp = false;
-        Master.Go = false;
-        StopCoroutine(CommenceAttack());
+        //Master.Go = false;
+        StopCoroutine(CommenceDefend());
     }
+
     /*IEnumerator CastingRightSide()
     {
         Anim.SetBool("IsAttacking?", true);

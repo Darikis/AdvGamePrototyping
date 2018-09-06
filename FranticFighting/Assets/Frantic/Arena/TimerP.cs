@@ -43,6 +43,7 @@ public class TimerP : MonoBehaviour {
             StopCoroutine(Spell());
             //PromptText.text = "Get Ready!";
             StartCoroutine(ReadyUp());
+            Live = false;
         }
         if (Ready == true && timeLeft > 0 && Manager.TurnOver == false)
         {
@@ -101,7 +102,7 @@ public class TimerP : MonoBehaviour {
     }
     IEnumerator Spell()
     {
-        Debug.Log("KaBOOOM");
+        
         PromptText.text = PP.AttackTextPrompt;
         //PromptText.text = "Casting";
         yield return new WaitForSecondsRealtime(3f);
