@@ -33,7 +33,7 @@ public class PlayerPlatform : MonoBehaviour {
     public bool Pressed = false;
     public Rigidbody rigi;
     public TimerPlatform Timer;
-    public Manager Mana;
+    public Master Mana;
     public Players PlayerCtrl;
     public List<CtrlScheme> ListOfPlayers;
     

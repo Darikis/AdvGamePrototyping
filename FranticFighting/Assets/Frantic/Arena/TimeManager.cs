@@ -9,7 +9,7 @@ public class TimeManager : MonoBehaviour {
     public PlayerPanal P2;
     public Text CountTextP1;
     public Text CountTextP2;
-    public Manager Master;
+    public Master Master;
     public AttackManager Manager;
     public Text PromptTextP1;
     public Text PromptTextP2;

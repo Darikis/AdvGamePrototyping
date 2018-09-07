@@ -33,7 +33,7 @@ public class Player1Ctrl : MonoBehaviour {
     public bool Pressed = false;
     public Rigidbody rigi;
     public Timer Timer;
-    public Manager Mana;
+    public Master Mana;
     public Players PlayerCtrl;
     public List<CtrlScheme> ListOfPlayers;
     

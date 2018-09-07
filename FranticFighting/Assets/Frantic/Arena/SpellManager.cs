@@ -7,11 +7,12 @@ public class SpellManager : MonoBehaviour {
     public PlayerPanal PP;
     //public TimerP TP;
     public AttackManager Manager;
-    public Manager Master;
+    public Master Master;
     public bool RightManager;
     public bool LeftManager;
     //public bool Casting;
     public bool Casted;
+    public bool Boom;
     //public bool OnAttack;
     //public bool OnDefense;
     //public bool TurnOver;
@@ -19,8 +20,10 @@ public class SpellManager : MonoBehaviour {
     public float SpellLvlL;
     public GameObject Spell01Transform;
     public GameObject Spell02transform;
+    public GameObject Spell03transform;
     public GameObject AttackSpell;
     public GameObject DefenseSpell;
+    public GameObject BoomSpell;
     public Animator Anim;
     //public AttackManager P1Man;
     //public AttackManager P2Man;
@@ -85,7 +88,7 @@ public class SpellManager : MonoBehaviour {
             if (Manager.Casting == true && Casted == false && PP.LeftDef == true && Master.Go == true)
             {
                 SpellLvlL = PP.LPowerLvl;
-                Manager.ATKlvlL = SpellLvlL;
+                Manager.DEFlvlL = SpellLvlL;
                 Manager.Casted = true;
                 DefenseSpell = Instantiate(Spell02transform, Manager.LeftMan.transform.position, Quaternion.identity);
                 DefenseSpell.GetComponent<MasterParticleCtrl>().Partlvl = SpellLvlL;
@@ -98,14 +101,25 @@ public class SpellManager : MonoBehaviour {
         }
 
     }
+    /*void OnTriggerEnter (Collider other)
+    {
+        
+        if (other.gameObject.tag == "Attack" && Boom == false)
+        {
+            BoomSpell = Instantiate(Spell03transform, Manager.LeftMan.transform.position, Quaternion.identity);
+            GameObject.Destroy(AttackSpell);
+            Boom = true;
+        }
+    }*/
 
     IEnumerator CommenceAttack()
     {
         Anim.SetBool("IsAttacking?", true);
-        yield return new WaitForSeconds(3.5f);
+        yield return new WaitForSeconds(3f);
+        Master.P1_TakeDamage = true;
+        Master.P2_TakeDamage = true;
+        yield return new WaitForSeconds(0.5f);
         Anim.SetBool("IsAttacking?", false);
-        //Master.P1_TakeDamage = true;
-        //Master.P2_TakeDamage = true;
         if (PP.Left == true)
         {
             GameObject.Destroy(AttackSpell);
@@ -120,21 +134,29 @@ public class SpellManager : MonoBehaviour {
             /*GameObject.Destroy(DefenseSpell);
             DefenseSpell = null;*/
         }
+        if(Boom == true)
+        {
+            GameObject.Destroy(BoomSpell);
+            BoomSpell = null;
+            Boom = false;
+        }
         Manager.TurnOver = true;
         Manager.Casted = true;
         PP.TotaledUp = false;
-        //Master.Go = false;
+        Master.Go = false;
         StopCoroutine(CommenceAttack());
     }
 
 
     IEnumerator CommenceDefend()
     {
-        Anim.SetBool("IsDefending?", true);
-        yield return new WaitForSeconds(3.5f);
-        Anim.SetBool("IsDefending?", false);
-        //Master.P1_TakeDamage = true;
-        //Master.P2_TakeDamage = true;
+        //Anim.SetBool("IsDefending?", true);
+        yield return new WaitForSeconds(3f);
+        Master.P1_TakeDamage = true;
+        Master.P2_TakeDamage = true;
+        yield return new WaitForSeconds(0.5f);
+        //Anim.SetBool("IsDefending?", false);
+        
         if (PP.Left == true)
         {
             /*GameObject.Destroy(AttackSpell);
@@ -149,10 +171,16 @@ public class SpellManager : MonoBehaviour {
             GameObject.Destroy(DefenseSpell);
             DefenseSpell = null;
         }
+        if (Boom == true)
+        {
+            GameObject.Destroy(BoomSpell);
+            BoomSpell = null;
+            Boom = false;
+        }
         Manager.TurnOver = true;
         Manager.Casted = true;
         PP.TotaledUp = false;
-        //Master.Go = false;
+        Master.Go = false;
         StopCoroutine(CommenceDefend());
     }
 

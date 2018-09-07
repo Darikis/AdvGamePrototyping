@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Manager : MonoBehaviour
+public class Master : MonoBehaviour
 {
 
 
@@ -17,6 +17,10 @@ public class Manager : MonoBehaviour
     public float P1_DamageR;
     public float P2_DamageL;
     public float P2_DamageR;
+    public float P1_GuardL;
+    public float P1_GuardR;
+    public float P2_GuardL;
+    public float P2_GuardR;
     public bool P1_TakeDamage;
     public bool P2_TakeDamage;
     public bool P1_TakeDamageR;
@@ -29,6 +33,7 @@ public class Manager : MonoBehaviour
     public Slider P2_HealthBar;
     public AttackManager P1_ATKman;
     public AttackManager P2_ATKman;
+    
 
 
     // Use this for initialization
@@ -59,14 +64,26 @@ public class Manager : MonoBehaviour
         {
             Go = true;
         }
+        /*if (Player1.TotaledUp == true && Player2.TotaledUp == false)
+        {
+            Player2.TotaledUp = true;
+        }
+        if (Player1.TotaledUp == false && Player2.TotaledUp == true)
+        {
+            Player1.TotaledUp = true;
+        }*/
         if (Go == false)
         {
-            //P1_TakeDamage = false;
-            //P2_TakeDamage = false;
+            P1_TakeDamage = false;
+            P2_TakeDamage = false;
             P1_ATKman.ATKlvlR = 0;
             P1_ATKman.ATKlvlL = 0;
             P2_ATKman.ATKlvlR = 0;
             P2_ATKman.ATKlvlL = 0;
+            P1_DamageL = 0;
+            P1_DamageR = 0;
+            P2_DamageL = 0;
+            P2_DamageR = 0;
 
         }
 
@@ -143,49 +160,45 @@ public class Manager : MonoBehaviour
 
 
 
-
+        //DO P1 OR P2 TAKE DAMAGE
         if (P2_ATKman.ATKlvlL > 0)
         {
-           
             if (P1_ATKman.ATKlvlR < P2_ATKman.ATKlvlL)
             {
                 P1_TakeDamageR = true;
             }
-            
         }
         if(P1_TakeDamageR == true)
         {
             if (P1_ATKman.DEFlvlR < P2_ATKman.ATKlvlL)
             {
-                P1_TakeDamage = true;
+                //P1_TakeDamage = true;
                 P1_TakeDamageR = true;
             }
             if (P1_ATKman.DEFlvlR >= P2_ATKman.ATKlvlL)
             {
-                P1_TakeDamage = true;
+                //P1_TakeDamage = true;
                 P1_TakeDamageR = false;
             }
         }
 
         if (P2_ATKman.ATKlvlR > 0)
         {
-            
             if (P1_ATKman.ATKlvlL < P2_ATKman.ATKlvlR)
             {
                 P1_TakeDamageL = true;
             }
-            
         }
         if(P1_TakeDamageL == true)
         {
             if (P1_ATKman.DEFlvlL < P2_ATKman.ATKlvlR)
             {
-                P1_TakeDamage = true;
+                //P1_TakeDamage = true;
                 P1_TakeDamageL = true;
             }
             if (P1_ATKman.DEFlvlL >= P2_ATKman.ATKlvlR)
             {
-                P1_TakeDamage = true;
+                //P1_TakeDamage = true;
                 P1_TakeDamageL = false;
             }
         }
@@ -193,23 +206,21 @@ public class Manager : MonoBehaviour
 
         if (P1_ATKman.ATKlvlR > 0)
         {
-            
             if (P1_ATKman.ATKlvlR > P2_ATKman.ATKlvlL)
             {
                 P2_TakeDamageL = true;
             }
-            
         }
         if(P2_TakeDamageL == true)
         {
             if (P1_ATKman.ATKlvlR > P2_ATKman.DEFlvlL)
             {
-                P2_TakeDamage = true;
+                //P2_TakeDamage = true;
                 P2_TakeDamageL = true;
             }
             if (P1_ATKman.ATKlvlR <= P2_ATKman.DEFlvlL)
             {
-                P2_TakeDamage = true;
+                //P2_TakeDamage = true;
                 P2_TakeDamageL = false;
             }
         }
@@ -217,24 +228,21 @@ public class Manager : MonoBehaviour
 
         if (P1_ATKman.ATKlvlL > 0)
         {
-            
             if (P1_ATKman.ATKlvlL > P2_ATKman.ATKlvlR)
             {
                 P2_TakeDamageR = true;
             }
-            
-            
         }
         if(P2_TakeDamageR == true)
         {
             if (P1_ATKman.ATKlvlL > P2_ATKman.DEFlvlR)
             {
-                P2_TakeDamage = true;
+                //P2_TakeDamage = true;
                 P2_TakeDamageR = true;
             }
             if (P1_ATKman.ATKlvlL <= P2_ATKman.DEFlvlR)
             {
-                P2_TakeDamage = true;
+                //P2_TakeDamage = true;
                 P2_TakeDamageR = false;
             }
         }
@@ -247,52 +255,106 @@ public class Manager : MonoBehaviour
 
         P1_HealthBar.value = P1_CurrentHP;
         P2_HealthBar.value = P2_CurrentHP;
+        //SET DAMAGE LEVELS P1
+        if (P1_ATKman.ATKlvlL > P1_ATKman.DEFlvlL)
+        {
+            P1_DamageL = P1_ATKman.ATKlvlL;
+        }
+        if (P1_ATKman.ATKlvlL < P1_ATKman.DEFlvlL)
+        {
+            P1_DamageL = 0;
+        }
+        if (P1_ATKman.ATKlvlR > P1_ATKman.DEFlvlR)
+        {
+            P1_DamageR = P1_ATKman.ATKlvlR;
+        }
+        if (P1_ATKman.ATKlvlR < P1_ATKman.DEFlvlR)
+        {
+            P1_DamageR = 0;
+        }
+        //Set GUARD LEVELS P1
+        if (P1_ATKman.ATKlvlL > P1_ATKman.DEFlvlL)
+        {
+            P1_GuardL = 0;
+        }
+        if (P1_ATKman.ATKlvlL < P1_ATKman.DEFlvlL)
+        {
+            P1_GuardL = P1_ATKman.DEFlvlL;
+        }
+        if (P1_ATKman.ATKlvlR > P1_ATKman.DEFlvlR)
+        {
+            P1_GuardR = 0;
+        }
+        if (P1_ATKman.ATKlvlR < P1_ATKman.DEFlvlR)
+        {
+            P1_GuardR = P1_ATKman.DEFlvlR;
+        }
 
-        if (Player1.LPowerLvl > Player1.RPowerLvl)
+
+        //SET DAMAGE LEVELS P2
+        if (P2_ATKman.ATKlvlL > P2_ATKman.DEFlvlL)
         {
-            P1_DamageL = Player1.LPowerLvl;
+            P2_DamageL = P2_ATKman.ATKlvlL;
         }
-        if (Player1.RPowerLvl > Player1.LPowerLvl)
+        if (P2_ATKman.ATKlvlL < P2_ATKman.DEFlvlL)
         {
-            P1_DamageR = Player1.RPowerLvl;
+            P2_DamageL = 0;
         }
-        if (Player2.LPowerLvl > Player2.RPowerLvl)
+        if (P2_ATKman.ATKlvlR > P2_ATKman.DEFlvlR)
         {
-            P2_DamageL = Player2.LPowerLvl;
+            P2_DamageR = P2_ATKman.ATKlvlR;
         }
-        if (Player2.RPowerLvl > Player2.LPowerLvl)
+        if (P2_ATKman.ATKlvlR < P2_ATKman.DEFlvlR)
         {
-            P2_DamageR = Player2.RPowerLvl;
+            P1_DamageR = 0;
+        }
+        //SET GUARD LEVELS P2
+        if (P2_ATKman.ATKlvlL > P2_ATKman.DEFlvlL)
+        {
+            P2_GuardL = 0;
+        }
+        if (P2_ATKman.ATKlvlL < P2_ATKman.DEFlvlL)
+        {
+            P2_GuardL = P1_ATKman.DEFlvlL;
+        }
+        if (P2_ATKman.ATKlvlR > P2_ATKman.DEFlvlR)
+        {
+            P2_GuardR = 0;
+        }
+        if (P1_ATKman.ATKlvlR < P1_ATKman.DEFlvlR)
+        {
+            P2_GuardR = P2_ATKman.DEFlvlR;
         }
 
 
 
-
-
-        if (P1_TakeDamageL == true && P1_TakeDamage == true && Go == true)
+        if (P1_TakeDamageL == true && P1_TakeDamage == true )
         {
-            P1_CurrentHP = P1_CurrentHP - P2_DamageR;
-            //P1_TakeDamage = false;
-            Go = false;
+            P1_CurrentHP = P1_CurrentHP - P2_DamageR + P1_GuardL;
+            Debug.Log("1");
+            P1_TakeDamage = false;
+            //Go = false;
         }
-        if (P2_TakeDamageL == true && P2_TakeDamage == true && Go == true)
+        if (P2_TakeDamageL == true && P2_TakeDamage == true )
         {
-            P2_CurrentHP = P2_CurrentHP - P1_DamageR;
-            //P2_TakeDamage = false;
-            Go = false;
+            P2_CurrentHP = P2_CurrentHP - P1_DamageR + P2_GuardL;
+            Debug.Log("2");
+            P2_TakeDamage = false;
+            //Go = false;
         }
-        if (P1_TakeDamageR == true && P1_TakeDamage == true && Go == true)
+        if (P1_TakeDamageR == true && P1_TakeDamage == true )
         {
-            P1_CurrentHP = P1_CurrentHP - P2_DamageL;
-            Debug.Log("KaBOOOM");
-            //P1_TakeDamage = false;
-            Go = false;
+            P1_CurrentHP = P1_CurrentHP - P2_DamageL + P1_GuardR;
+            Debug.Log("3");
+            P1_TakeDamage = false;
+            //Go = false;
         }
-        if (P2_TakeDamageR == true && P2_TakeDamage == true && Go == true)
+        if (P2_TakeDamageR == true && P2_TakeDamage == true )
         {
-            P2_CurrentHP = P2_CurrentHP - P1_DamageL;
-            //P2_TakeDamage = false;
-            Go = false;
+            P2_CurrentHP = P2_CurrentHP - P1_DamageL + P2_GuardL;
+            Debug.Log("4");
+            P2_TakeDamage = false;
+            //Go = false;
         }
     }
     

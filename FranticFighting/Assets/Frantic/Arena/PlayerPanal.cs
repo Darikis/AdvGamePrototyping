@@ -79,6 +79,12 @@ public class PlayerPanal : MonoBehaviour {
             StartCoroutine(Pause());
             StartCoroutine(TallyUp());
         }
+        /*if (TP.timeLeft >= 0 && TotaledUp == true && G0)
+        {
+            StartCoroutine(TallyUp());
+            StartCoroutine(Pause());
+            TotaledUp = false;
+        }*/
 
         if (Total >= 1)
         {
@@ -185,7 +191,7 @@ public class PlayerPanal : MonoBehaviour {
         Vote03 = 0;
         Vote04 = 0;
         Total = 0;
-        StopCoroutine(TallyUp());
+        //StopCoroutine(TallyUp());
         StopCoroutine(Pause());
     }
 

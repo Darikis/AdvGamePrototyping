@@ -19,7 +19,7 @@ public class AttackManager : MonoBehaviour
     public bool Casting;
     public bool Casted;
     public bool TurnOver;
-    public Manager Master;
+    public Master Master;
     //public AttackManager P1Man;
     //public AttackManager P2Man;
     //public bool Attacking;
