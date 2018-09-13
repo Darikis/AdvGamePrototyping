@@ -15,9 +15,6 @@ public class PlayerPanal : MonoBehaviour {
     public float Vote03;
     public float Vote04;
     public float HealthTotal;
-    public string AttackTextPrompt;
-    public string AttackTextL;
-    public string AttackTextR;
     public Image im01;
     public Image im02;
     public Image im03;
@@ -33,25 +30,12 @@ public class PlayerPanal : MonoBehaviour {
     public bool RightDef;
     public bool LeftDef;
     public bool TotaledUp;
+    public bool CanTotal;
     public Rigidbody rigi;
     public TimerP TP;
     //public SpellManager Manager;
     public Players PlayerCtrl;
     public List<CtrlScheme> ListOfPlayers;
-    
-  
-
-
-    /*[System.Serializable]
-    public class Players
-    {
-        public KeyCode Player1Forward;
-        public KeyCode Player1Right;
-        public KeyCode Player1Left;
-        public KeyCode Player1Backward;
-    }*/
-    
-    //public KeyCode Player1Forward;
 
 	// Use this for initialization
 	void Start () {
@@ -71,20 +55,19 @@ public class PlayerPanal : MonoBehaviour {
         {
             InputReady = false;
         }
-        
-        if (TP.timeLeft <= 0)
+
+        if (TP.timeLeft <= 0 && TotaledUp == false && CanTotal == false)
         {
-            Mathf.Max(Vote01, Vote02, Vote03, Vote04);
-            //Player.transform.position = Pos;
-            StartCoroutine(Pause());
-            StartCoroutine(TallyUp());
+            CanTotal = true;
         }
-        /*if (TP.timeLeft >= 0 && TotaledUp == true && G0)
+        if (TP.timeLeft <= 0 && TotaledUp == false && CanTotal == true)
         {
+            //Mathf.Max(Vote01, Vote02, Vote03, Vote04);
+            //Player.transform.position = Pos;
+            //StartCoroutine(Pause());
             StartCoroutine(TallyUp());
-            StartCoroutine(Pause());
-            TotaledUp = false;
-        }*/
+            CanTotal = false;
+        }
 
         if (Total >= 1)
         {
@@ -149,10 +132,6 @@ public class PlayerPanal : MonoBehaviour {
                 Pressed = true;
                 ctrl.ReadyToAct = false;
             }
-            /*if (Pressed == true)
-            {ctrl.img.enabled = true;}
-            else
-            {ctrl.img.enabled = false;}*/
         }
     }
     void MoveForward()
@@ -184,7 +163,7 @@ public class PlayerPanal : MonoBehaviour {
     { 
         TP.Play = false;
         Pressed = false;
-        TP.timeLeft = 2;
+        //TP.timeLeft = 3;
         yield return new WaitForEndOfFrame();
         Vote01 = 0;
         Vote02 = 0;
@@ -197,29 +176,14 @@ public class PlayerPanal : MonoBehaviour {
 
     IEnumerator TallyUp()
     {
-        /*if (Vote01 > Vote02 && Vote01 > Vote03 && Vote01 > Vote04)
-        {
-            print("1 is bigga!!!");
-        }
-        if (Vote02 > Vote01 && Vote02 > Vote03 && Vote02 > Vote04)
-        {
-            print("2 is bigga!!!");
-        }
-        if (Vote03 > Vote02 && Vote03 > Vote01 && Vote03 > Vote04)
-        {
-            print("3 is bigga!!!");
-        }
-        if (Vote04 > Vote02 && Vote04 > Vote03 && Vote04 > Vote01)
-        {
-            print("4 is bigga!!!");
-        }*/
+        
         if (Vote01 > Vote03)
         {
             //print("1 is bigga and equals " + Vote01);
             LPowerLvl = Vote01;
             LeftAtk = true;
             Left = true;
-            AttackTextL = "Level " + LPowerLvl + " Left Attack!";
+            TP.AttackTextL = "Level " + LPowerLvl + " Left Attack!";
         }
         if (Vote02 >  Vote04)
         {
@@ -227,7 +191,7 @@ public class PlayerPanal : MonoBehaviour {
             RPowerLvl = Vote02;
             RightAtk = true;
             Right = true;
-            AttackTextR = "Level " + RPowerLvl + " Right Attack!";
+            TP.AttackTextR = "Level " + RPowerLvl + " Right Attack!";
         }
         if (Vote03 > Vote01)
         {
@@ -235,7 +199,7 @@ public class PlayerPanal : MonoBehaviour {
             LPowerLvl = Vote03;
             LeftDef = true;
             Left = true;
-            AttackTextL = "Level " + LPowerLvl + " Left Defense!";
+            TP.AttackTextL = "Level " + LPowerLvl + " Left Defense!";
         }
         if (Vote04 > Vote02)
         {
@@ -243,52 +207,26 @@ public class PlayerPanal : MonoBehaviour {
             RPowerLvl = Vote04;
             RightDef = true;
             Right = true;
-            AttackTextR = "Level " + RPowerLvl + " Right Defense!";
-        }
-        /*if (LeftAtk == true && LeftDef == false)
-        {
-            AttackTextPrompt = AttackTextL;
-        }
-        if (LeftDef == true && LeftAtk == false)
-        {
-            AttackTextPrompt = AttackTextL;
-        }
-        if (RightAtk == true && RightDef == false)
-        {
-            AttackTextPrompt = AttackTextR;
-        }
-        if (RightDef == true && RightAtk == false)
-        {
-            AttackTextPrompt = AttackTextR;
-        }*/
-        if (Right == true && Left == true)
-        {
-            AttackTextPrompt = AttackTextL + " & " + AttackTextR;
-        }
-        if (Right == true && Left == false)
-        {
-            AttackTextPrompt = AttackTextR;
-        }
-        if (Left == true && Right == false)
-        {
-            AttackTextPrompt = AttackTextL;
+            TP.AttackTextR = "Level " + RPowerLvl + " Right Defense!";
         }
         
         yield return new WaitForSeconds(1);
-        Debug.Log("HERE");
+        Debug.Log("Tally");
         TotaledUp = true;
+        StartCoroutine(Pause());
+        StopCoroutine(TallyUp());
         
     }
 
     
 
-    private void OnCollisionEnter(Collision collision)
+    /*private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
             print("Something Hit Me!");
         }
         
-    }
+    }*/
 
 }

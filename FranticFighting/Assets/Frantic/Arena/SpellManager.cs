@@ -101,16 +101,7 @@ public class SpellManager : MonoBehaviour {
         }
 
     }
-    /*void OnTriggerEnter (Collider other)
-    {
-        
-        if (other.gameObject.tag == "Attack" && Boom == false)
-        {
-            BoomSpell = Instantiate(Spell03transform, Manager.LeftMan.transform.position, Quaternion.identity);
-            GameObject.Destroy(AttackSpell);
-            Boom = true;
-        }
-    }*/
+
 
     IEnumerator CommenceAttack()
     {
@@ -142,7 +133,7 @@ public class SpellManager : MonoBehaviour {
         }
         Manager.TurnOver = true;
         Manager.Casted = true;
-        PP.TotaledUp = false;
+        //PP.TotaledUp = false;
         Master.Go = false;
         StopCoroutine(CommenceAttack());
     }
@@ -179,59 +170,8 @@ public class SpellManager : MonoBehaviour {
         }
         Manager.TurnOver = true;
         Manager.Casted = true;
-        PP.TotaledUp = false;
+        //PP.TotaledUp = false;
         Master.Go = false;
         StopCoroutine(CommenceDefend());
     }
-
-    /*IEnumerator CastingRightSide()
-    {
-        Anim.SetBool("IsAttacking?", true);
-        yield return new WaitForSeconds(3.5f);
-        Anim.SetBool("IsAttacking?", false);
-        if (PP.Left == true)
-        {
-            GameObject.Destroy(AttackSpell);
-            AttackSpell = null;
-            GameObject.Destroy(DefenseSpell);
-            DefenseSpell = null;
-        }
-        if (PP.Right == true)
-        {
-            GameObject.Destroy(AttackSpell);
-            AttackSpell = null;
-            GameObject.Destroy(DefenseSpell);
-            DefenseSpell = null;
-        }
-        Manager.TurnOver = true;
-        Manager.Casted = true;
-        Master.Go = false;
-        PP.TotaledUp = false;
-        StopCoroutine(CastingRightSide());
-    }
-    IEnumerator CastingLeftSide()
-    {
-        Anim.SetBool("IsAttacking?", true);
-        yield return new WaitForSeconds(3.5f);
-        Anim.SetBool("IsAttacking?", false);
-        if (PP.Left == true)
-        {
-            GameObject.Destroy(AttackSpell);
-            AttackSpell = null;
-            GameObject.Destroy(DefenseSpell);
-            DefenseSpell = null;
-        }
-        if (PP.Right == true)
-        {
-            GameObject.Destroy(AttackSpell);
-            AttackSpell = null;
-            GameObject.Destroy(DefenseSpell);
-            DefenseSpell = null;
-        }
-        Manager.TurnOver = true;
-        Manager.Casted = true;
-        Master.Go = false;
-        PP.TotaledUp = false;
-        StopCoroutine(CastingLeftSide());
-    }*/
 }

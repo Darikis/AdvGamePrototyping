@@ -7,10 +7,14 @@ public class TimerP : MonoBehaviour {
     
     public float timeLeft = 2;
     public PlayerPanal PP;
+    public Master Master;
     public AttackManager Manager;
-    public Text CountTextP1;
+    public Text CountText;
     //public Text CountTextP2;
     public Text PromptText;
+    public string AttackTextPrompt;
+    public string AttackTextL;
+    public string AttackTextR;
     public bool CountDown = false;
     public bool Ready = false;
     public bool Play = false;
@@ -28,22 +32,18 @@ public class TimerP : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        CountTextP1.text = "TimeLeft: " + timeLeft.ToString();
-        //CountTextP2.text = "TimeLeft: " + timeLeft.ToString();
+        CountText.text = "TimeLeft: " + timeLeft.ToString();
+        
         if (Ready == false && Live == true && Manager.Casting == true && Manager.Casted == true)
         {
             StartCoroutine(Spell());
         }
-        /*if (Manager.TurnOver == true)
-        {
-            StartCoroutine(PleaseWait());
-        }*/
         if (Ready == false && Live == true && Manager.Casting == false && Manager.TurnOver == true)
         {
             StopCoroutine(Spell());
             //PromptText.text = "Get Ready!";
             StartCoroutine(ReadyUp());
-            Live = false;
+            //Live = false;
         }
         if (Ready == true && timeLeft > 0 && Manager.TurnOver == false)
         {
@@ -77,7 +77,7 @@ public class TimerP : MonoBehaviour {
         PromptText.text = "Get Ready!";
         yield return new WaitForSeconds(1f);
         //PromptText.text = "Please Input Command to Start";
-        timeLeft = 2;
+        timeLeft = 3;
         //yield return new WaitForSeconds(1f);
         Ready = true;
         Live = true;
@@ -91,21 +91,27 @@ public class TimerP : MonoBehaviour {
         PP.RightDef = false;
         PP.LeftAtk = false;
         PP.LeftDef = false;
+        PP.TotaledUp = false;
         StopCoroutine(ReadyUp());
     }
-    IEnumerator PleaseWait()
-    {
-        PromptText.text = PP.AttackTextPrompt;
 
-        yield return new WaitForEndOfFrame();
-
-    }
     IEnumerator Spell()
     {
-        
-        PromptText.text = PP.AttackTextPrompt;
+        if (PP.Right == true && PP.Left == true)
+        {
+            AttackTextPrompt = AttackTextL + " & " + AttackTextR;
+        }
+        if (PP.Right == true && PP.Left == false)
+        {
+            AttackTextPrompt = AttackTextR;
+        }
+        if (PP.Left == true && PP.Right == false)
+        {
+            AttackTextPrompt = AttackTextL;
+        }
+        PromptText.text = AttackTextPrompt;
         //PromptText.text = "Casting";
-        yield return new WaitForSecondsRealtime(3f);
+        yield return new WaitForSeconds(3f);
         Manager.Casting = false;        
     }
 
