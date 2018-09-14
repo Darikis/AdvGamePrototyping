@@ -7,7 +7,8 @@ public class AttackManager : MonoBehaviour
 
 
     public PlayerPanal PP;
-    public TimerP TP;
+    public TimerManager TM;
+    //public TimerP TP;
     public bool OwnerIsP1;
     public bool OwnerIsP2;
     public float ATKlvlL;
@@ -16,7 +17,7 @@ public class AttackManager : MonoBehaviour
     public float DEFlvlR;
     public SpellManager LeftMan;
     public SpellManager RightMan;
-    public bool Casting;
+    //public bool Casting;
     public bool Casted;
     public bool TurnOver;
     public Master Master;

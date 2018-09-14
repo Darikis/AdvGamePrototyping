@@ -9,8 +9,7 @@ public class Master : MonoBehaviour
 
     public PlayerPanal Player1;
     public PlayerPanal Player2;
-    public TimerP P1_TP;
-    public TimerP P2_TP;
+    public TimerManager TM;
     public float P1_CurrentHP;
     public float P2_CurrentHP;
     public float P1_DamageL;
@@ -28,6 +27,7 @@ public class Master : MonoBehaviour
     public bool P2_TakeDamageR;
     public bool P2_TakeDamageL;
     public bool Go;
+    public bool NewTurn;
     public bool CanTakeDmg;
     public Slider P1_HealthBar;
     public Slider P2_HealthBar;
@@ -64,14 +64,16 @@ public class Master : MonoBehaviour
         {
             Go = true;
         }
-        /*if (Player1.TotaledUp == true && Player2.TotaledUp == false)
+        
+        if (P1_ATKman.TurnOver == true && P2_ATKman.TurnOver == true)
         {
-            Player2.TotaledUp = true;
+            NewTurn = true;
+            Go = false;
         }
-        if (Player1.TotaledUp == false && Player2.TotaledUp == true)
+        if (P1_ATKman.TurnOver == false && P2_ATKman.TurnOver == false)
         {
-            Player1.TotaledUp = true;
-        }*/
+            NewTurn = false;
+        }
         if (Go == false)
         {
             P1_TakeDamage = false;
@@ -84,6 +86,12 @@ public class Master : MonoBehaviour
             P1_DamageR = 0;
             P2_DamageL = 0;
             P2_DamageR = 0;
+            P1_ATKman.LeftMan.Casted = false;
+            P1_ATKman.RightMan.Casted = false;
+            P2_ATKman.LeftMan.Casted = false;
+            P2_ATKman.RightMan.Casted = false;
+            TM.ATKphase = false;
+
 
         }
 
@@ -252,7 +260,7 @@ public class Master : MonoBehaviour
         {
             P2_GuardR = 0;
         }
-        if (P1_ATKman.ATKlvlR < P1_ATKman.DEFlvlR)
+        if (P2_ATKman.ATKlvlR < P2_ATKman.DEFlvlR)
         {
             P2_GuardR = P2_ATKman.DEFlvlR;
         }

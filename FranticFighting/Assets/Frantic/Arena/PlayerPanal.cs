@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class PlayerPanal : MonoBehaviour {
 
     public GameObject PP;
-    public GameObject Enemy;
+    public TimerManager TM;
     public float Total;
     public float RPowerLvl;
     public float LPowerLvl;
@@ -21,6 +21,8 @@ public class PlayerPanal : MonoBehaviour {
     public Image im04;
     public Image im05;
     public Vector3 Pos;
+    public bool AmP1;
+    public bool AmP2;
     public bool InputReady = false;
     public bool Pressed = false;
     public bool Right;
@@ -29,10 +31,11 @@ public class PlayerPanal : MonoBehaviour {
     public bool LeftAtk;
     public bool RightDef;
     public bool LeftDef;
+    //public bool CanPause;
     public bool TotaledUp;
     public bool CanTotal;
     public Rigidbody rigi;
-    public TimerP TP;
+    //public TimerP TP;
     //public SpellManager Manager;
     public Players PlayerCtrl;
     public List<CtrlScheme> ListOfPlayers;
@@ -42,37 +45,59 @@ public class PlayerPanal : MonoBehaviour {
         PP = gameObject;
         rigi = PP.GetComponent<Rigidbody>();
         TotaledUp = false;
+        CanTotal = false;
     }
 	
 	// Update is called once per frame
 	void Update () {
+        if (AmP1 == true)
+        {
+            if (TM.P1_timeLeft > 0 && TM.P1_Ready == true)
+            {
+                InputReady = true;
+            }
+            else
+            {
+                InputReady = false;
+            }
+            /*if (TM.P1_Ready == true && CanPause == true)
+            {
+                StartCoroutine(P1_Pause());
+                CanPause = false;
+            }*/
+            if (TM.P1_timeLeft <= 0 && TotaledUp == false && CanTotal == true)
+            {
+                StartCoroutine(P1_TallyUp());
+                CanTotal = false;
+            }
+        }
+        if (AmP2 == true)
+        {
+            if (TM.P2_timeLeft > 0 && TM.P2_Ready == true)
+            {
+                InputReady = true;
+            }
+            else
+            {
+                InputReady = false;
+            }
+            /*if (TM.P2_Ready == true && CanPause == true)
+            {
+                StartCoroutine(P2_Pause());
+            }*/
+            if (TM.P2_timeLeft <= 0 && TotaledUp == false && CanTotal == true)
+            {
+                StartCoroutine(P2_TallyUp());
+                CanTotal = false;
+            }
+        }
 
-        if (TP.timeLeft > 0 && TP.Ready == true)
-        {
-            InputReady = true;
-        }
-        else
-        {
-            InputReady = false;
-        }
 
-        if (TP.timeLeft <= 0 && TotaledUp == false && CanTotal == false)
-        {
-            CanTotal = true;
-        }
-        if (TP.timeLeft <= 0 && TotaledUp == false && CanTotal == true)
-        {
-            //Mathf.Max(Vote01, Vote02, Vote03, Vote04);
-            //Player.transform.position = Pos;
-            //StartCoroutine(Pause());
-            StartCoroutine(TallyUp());
-            CanTotal = false;
-        }
-
+        Total = Vote01 + Vote02 + Vote03 + Vote04;
         if (Total >= 1)
         {
             im01.enabled = true;
-        } 
+        }
         if (Total >= 2)
         {
             im02.enabled = true;
@@ -98,8 +123,6 @@ public class PlayerPanal : MonoBehaviour {
             im05.enabled = false;
         }
 
-        Total = Vote01 + Vote02 + Vote03 + Vote04;
-
         foreach (CtrlScheme ctrl in ListOfPlayers)
         {
             if (Pressed == false)
@@ -108,9 +131,17 @@ public class PlayerPanal : MonoBehaviour {
             }
             if (Input.GetKeyDown(ctrl.B1) && InputReady == true && ctrl.ReadyToAct == true)
             {
-                
+
                 MoveForward();
                 Pressed = true;
+                if (AmP1 == true)
+                {
+                    TM.P1_TallyTime = true;
+                }
+                if (AmP2 == true)
+                {
+                    TM.P2_TallyTime = true;
+                }
                 ctrl.ReadyToAct = false;
                 //Debug.Log("BAD BAD BAD");
             }
@@ -118,21 +149,46 @@ public class PlayerPanal : MonoBehaviour {
             {
                 MoveRight();
                 Pressed = true;
+                if (AmP1 == true)
+                {
+                    TM.P1_TallyTime = true;
+                }
+                if (AmP2 == true)
+                {
+                    TM.P2_TallyTime = true;
+                }
                 ctrl.ReadyToAct = false;
             }
             if (Input.GetKeyDown(ctrl.B3) && InputReady == true && ctrl.ReadyToAct == true)
             {
                 MoveLeft();
                 Pressed = true;
+                if (AmP1 == true)
+                {
+                    TM.P1_TallyTime = true;
+                }
+                if (AmP2 == true)
+                {
+                    TM.P2_TallyTime = true;
+                }
                 ctrl.ReadyToAct = false;
             }
             if (Input.GetKeyDown(ctrl.B4) && InputReady == true && ctrl.ReadyToAct == true)
             {
                 MoveBackward();
                 Pressed = true;
+                if (AmP1 == true)
+                {
+                    TM.P1_TallyTime = true;
+                }
+                if (AmP2 == true)
+                {
+                    TM.P2_TallyTime = true;
+                }
                 ctrl.ReadyToAct = false;
             }
         }
+
     }
     void MoveForward()
     {
@@ -159,9 +215,8 @@ public class PlayerPanal : MonoBehaviour {
         //rigi.AddForce(Vector3.left * RunSpeed, ForceMode.Impulse);
     }
 
-    IEnumerator Pause()
+    IEnumerator P1_Pause()
     { 
-        TP.Play = false;
         Pressed = false;
         //TP.timeLeft = 3;
         yield return new WaitForEndOfFrame();
@@ -171,10 +226,23 @@ public class PlayerPanal : MonoBehaviour {
         Vote04 = 0;
         Total = 0;
         //StopCoroutine(TallyUp());
-        StopCoroutine(Pause());
+        StopCoroutine(P1_Pause());
+    }
+    IEnumerator P2_Pause()
+    {
+        Pressed = false;
+        //TP.timeLeft = 3;
+        yield return new WaitForEndOfFrame();
+        Vote01 = 0;
+        Vote02 = 0;
+        Vote03 = 0;
+        Vote04 = 0;
+        Total = 0;
+        //StopCoroutine(TallyUp());
+        StopCoroutine(P2_Pause());
     }
 
-    IEnumerator TallyUp()
+    IEnumerator P1_TallyUp()
     {
         
         if (Vote01 > Vote03)
@@ -183,7 +251,7 @@ public class PlayerPanal : MonoBehaviour {
             LPowerLvl = Vote01;
             LeftAtk = true;
             Left = true;
-            TP.AttackTextL = "Level " + LPowerLvl + " Left Attack!";
+            TM.P1_AttackTextL = "Level " + LPowerLvl + " Left Attack!";
         }
         if (Vote02 >  Vote04)
         {
@@ -191,7 +259,7 @@ public class PlayerPanal : MonoBehaviour {
             RPowerLvl = Vote02;
             RightAtk = true;
             Right = true;
-            TP.AttackTextR = "Level " + RPowerLvl + " Right Attack!";
+            TM.P1_AttackTextR = "Level " + RPowerLvl + " Right Attack!";
         }
         if (Vote03 > Vote01)
         {
@@ -199,7 +267,7 @@ public class PlayerPanal : MonoBehaviour {
             LPowerLvl = Vote03;
             LeftDef = true;
             Left = true;
-            TP.AttackTextL = "Level " + LPowerLvl + " Left Defense!";
+            TM.P1_AttackTextL = "Level " + LPowerLvl + " Left Defense!";
         }
         if (Vote04 > Vote02)
         {
@@ -207,14 +275,57 @@ public class PlayerPanal : MonoBehaviour {
             RPowerLvl = Vote04;
             RightDef = true;
             Right = true;
-            TP.AttackTextR = "Level " + RPowerLvl + " Right Defense!";
+            TM.P1_AttackTextR = "Level " + RPowerLvl + " Right Defense!";
         }
         
         yield return new WaitForSeconds(1);
         Debug.Log("Tally");
         TotaledUp = true;
-        StartCoroutine(Pause());
-        StopCoroutine(TallyUp());
+        StartCoroutine(P1_Pause());
+        StopCoroutine(P1_TallyUp());
+        
+    }
+    IEnumerator P2_TallyUp()
+    {
+        
+        if (Vote01 > Vote03)
+        {
+            //print("1 is bigga and equals " + Vote01);
+            LPowerLvl = Vote01;
+            LeftAtk = true;
+            Left = true;
+            TM.P2_AttackTextL = "Level " + LPowerLvl + " Left Attack!";
+        }
+        if (Vote02 >  Vote04)
+        {
+            //print("2 is bigga and equals " + Vote02);
+            RPowerLvl = Vote02;
+            RightAtk = true;
+            Right = true;
+            TM.P2_AttackTextR = "Level " + RPowerLvl + " Right Attack!";
+        }
+        if (Vote03 > Vote01)
+        {
+            //print("3 is bigga and equals " + Vote03);
+            LPowerLvl = Vote03;
+            LeftDef = true;
+            Left = true;
+            TM.P2_AttackTextL = "Level " + LPowerLvl + " Left Defense!";
+        }
+        if (Vote04 > Vote02)
+        {
+            //print("4 is bigga and equals " + Vote04);
+            RPowerLvl = Vote04;
+            RightDef = true;
+            Right = true;
+            TM.P2_AttackTextR = "Level " + RPowerLvl + " Right Defense!";
+        }
+        
+        yield return new WaitForSeconds(1);
+        Debug.Log("Tally");
+        TotaledUp = true;
+        StartCoroutine(P2_Pause());
+        StopCoroutine(P2_TallyUp());
         
     }
 

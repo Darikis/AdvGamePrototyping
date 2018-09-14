@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class TimerP : MonoBehaviour {
-    
+    public TimerManager TM;
     public float timeLeft = 2;
     public PlayerPanal PP;
     public Master Master;
@@ -25,14 +25,19 @@ public class TimerP : MonoBehaviour {
     // Use this for initialization
     void Start () {
         
-        StartCoroutine(ReadyUp());
+        //StartCoroutine(ReadyUp());
         
     }
 	
 	// Update is called once per frame
 	void Update () {
 
-        CountText.text = "TimeLeft: " + timeLeft.ToString();
+
+
+
+
+
+        /*CountText.text = "TimeLeft: " + timeLeft.ToString();
         
         if (Ready == false && Live == true && Manager.Casting == true && Manager.Casted == true)
         {
@@ -65,12 +70,12 @@ public class TimerP : MonoBehaviour {
             Play = false;
             Ready = false;
             CountDown = false;
-            Manager.Casting = true;
+            //Manager.Casting = true;
         }
-        //if (GStart.Play == true && Ready )
+        //if (GStart.Play == true && Ready )*/
         
     }
-    IEnumerator ReadyUp()
+    /*IEnumerator ReadyUp()
     {
         Debug.Log("Ready!");
         PromptText.color = Default;
@@ -113,7 +118,7 @@ public class TimerP : MonoBehaviour {
         //PromptText.text = "Casting";
         yield return new WaitForSeconds(3f);
         Manager.Casting = false;        
-    }
+    }*/
 
 
 }
