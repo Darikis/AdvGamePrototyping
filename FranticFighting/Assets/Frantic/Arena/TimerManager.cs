@@ -174,6 +174,9 @@ public class TimerManager : MonoBehaviour {
         //yield return new WaitForSeconds(1f);
         //P1_Manager.LeftMan.Casted = false;
         //P1_Manager.RightMan.Casted = false;
+        P1_AttackTextR = null;
+        P1_AttackTextL = null;
+        P1_AttackTextPrompt = null;
         P1.Left = false;
         P1.Right = false;
         P1.RightAtk = false;
@@ -200,6 +203,9 @@ public class TimerManager : MonoBehaviour {
         //yield return new WaitForSeconds(1f);
         //P1_Manager.LeftMan.Casted = false;
         //P1_Manager.RightMan.Casted = false;
+        P2_AttackTextR = null;
+        P2_AttackTextL = null;
+        P2_AttackTextPrompt = null;
         P2.Left = false;
         P2.Right = false;
         P2.RightAtk = false;

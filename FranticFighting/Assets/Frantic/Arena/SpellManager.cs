@@ -46,6 +46,7 @@ public class SpellManager : MonoBehaviour {
                 SpellLvlR = PP.RPowerLvl;
                 Manager.ATKlvlR = SpellLvlR;
                 Manager.Casted = true;
+                Manager.AttackingR = true;
                 AttackSpell = Instantiate(Spell01Transform, Manager.RightMan.transform.position, Quaternion.identity);
                 AttackSpell.GetComponent<MasterParticleCtrl>().Partlvl = SpellLvlR;
                 AttackSpell.transform.parent = Manager.RightMan.gameObject.transform;
@@ -60,6 +61,7 @@ public class SpellManager : MonoBehaviour {
                 SpellLvlR = PP.RPowerLvl;
                 Manager.DEFlvlR = SpellLvlR;
                 Manager.Casted = true;
+                Manager.DefendingR = true;
                 DefenseSpell = Instantiate(Spell02transform, Manager.RightMan.transform.position, Quaternion.identity);
                 DefenseSpell.GetComponent<MasterParticleCtrl>().Partlvl = SpellLvlR;
                 DefenseSpell.transform.parent = Manager.RightMan.gameObject.transform;
@@ -76,6 +78,7 @@ public class SpellManager : MonoBehaviour {
                 SpellLvlL = PP.LPowerLvl;
                 Manager.ATKlvlL = SpellLvlL;
                 Manager.Casted = true;
+                Manager.AttackingL = true;
                 AttackSpell = Instantiate(Spell01Transform, Manager.LeftMan.transform.position, Quaternion.identity);
                 AttackSpell.GetComponent<MasterParticleCtrl>().Partlvl = SpellLvlL;
                 AttackSpell.transform.parent = Manager.LeftMan.gameObject.transform;
@@ -90,6 +93,7 @@ public class SpellManager : MonoBehaviour {
                 SpellLvlL = PP.LPowerLvl;
                 Manager.DEFlvlL = SpellLvlL;
                 Manager.Casted = true;
+                Manager.DefendingR = true;
                 DefenseSpell = Instantiate(Spell02transform, Manager.LeftMan.transform.position, Quaternion.identity);
                 DefenseSpell.GetComponent<MasterParticleCtrl>().Partlvl = SpellLvlL;
                 DefenseSpell.transform.parent = Manager.LeftMan.gameObject.transform;

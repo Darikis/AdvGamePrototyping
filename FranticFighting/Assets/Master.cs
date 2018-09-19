@@ -82,32 +82,142 @@ public class Master : MonoBehaviour
             P1_ATKman.ATKlvlL = 0;
             P2_ATKman.ATKlvlR = 0;
             P2_ATKman.ATKlvlL = 0;
+            P1_ATKman.DEFlvlL = 0;
+            P1_ATKman.DEFlvlR = 0;
+            P2_ATKman.DEFlvlL = 0;
+            P2_ATKman.DEFlvlR = 0;
             P1_DamageL = 0;
             P1_DamageR = 0;
             P2_DamageL = 0;
             P2_DamageR = 0;
+            P1_TakeDamageL = false;
+            P1_TakeDamageR = false;
+            P2_TakeDamageL = false;
+            P2_TakeDamageR = false;
             P1_ATKman.LeftMan.Casted = false;
             P1_ATKman.RightMan.Casted = false;
             P2_ATKman.LeftMan.Casted = false;
             P2_ATKman.RightMan.Casted = false;
+            P1_ATKman.AttackingL = false;
+            P1_ATKman.AttackingR = false;
+            P2_ATKman.AttackingL = false;
+            P2_ATKman.AttackingR = false;
             TM.ATKphase = false;
 
 
         }
 
 
+        /*//SET DAMAGE LEVELS P1
+        if (P1_ATKman.ATKlvlL > P1_ATKman.DEFlvlL)
+        {
+            P1_DamageL = P1_ATKman.ATKlvlL;
+            P1_GuardL = 0;
+        }
+        if (P1_ATKman.ATKlvlL < P1_ATKman.DEFlvlL)
+        {
+            P1_DamageL = 0;
+            P1_GuardL = P1_ATKman.DEFlvlL;
+        }
+        if (P1_ATKman.ATKlvlR > P1_ATKman.DEFlvlR)
+        {
+            P1_DamageR = P1_ATKman.ATKlvlR;
+            P1_GuardR = 0;
+        }
+        if (P1_ATKman.ATKlvlR < P1_ATKman.DEFlvlR)
+        {
+            P1_DamageR = 0;
+            P1_GuardR = P1_ATKman.DEFlvlR;
+        }
+
+
+        //SET DAMAGE LEVELS P2
+        if (P2_ATKman.ATKlvlL > P2_ATKman.DEFlvlL)
+        {
+            P2_DamageL = P2_ATKman.ATKlvlL;
+            P2_GuardL = 0;
+        }
+        if (P2_ATKman.ATKlvlL < P2_ATKman.DEFlvlL)
+        {
+            P2_DamageL = 0;
+            P2_GuardL = P1_ATKman.DEFlvlL;
+        }
+        if (P2_ATKman.ATKlvlR > P2_ATKman.DEFlvlR)
+        {
+            P2_DamageR = P2_ATKman.ATKlvlR;
+            P2_GuardR = 0;
+        }
+        if (P2_ATKman.ATKlvlR < P2_ATKman.DEFlvlR)
+        {
+            P2_DamageR = 0;
+            P2_GuardR = P2_ATKman.DEFlvlR;
+        }*/
+
+
+
+        if (P1_ATKman.AttackingR == true)
+        {
+            P1_DamageR = P1_ATKman.ATKlvlR;
+            P1_GuardR = 0;
+        }
+        if (P1_ATKman.AttackingL == true)
+        {
+            P1_DamageL = P1_ATKman.ATKlvlL;
+            P1_GuardL = 0;
+        }
+        if (P1_ATKman.DefendingR == true)
+        {
+            P1_DamageR = 0;
+            P1_GuardR = P1_ATKman.DEFlvlR;
+        }
+        if (P1_ATKman.DefendingL == true)
+        {
+            P1_DamageL = 0;
+            P1_GuardL = P1_ATKman.DEFlvlL;
+        }
+
+
+        if (P2_ATKman.AttackingR == true) //ATKlvlL > 0)
+        {
+            P2_DamageR = P2_ATKman.ATKlvlR;
+            P2_GuardR = 0;
+        }
+        if (P2_ATKman.AttackingL == true) //ATKlvlL > 0)
+        {
+            P2_DamageL = P2_ATKman.ATKlvlL;
+            P2_GuardL = 0;
+        }
+        if (P2_ATKman.DefendingR == true)
+        {
+            P2_DamageR = 0;
+            P2_GuardR = P2_ATKman.DEFlvlR;
+        }
+        if (P2_ATKman.DefendingL == true)
+        {
+            P2_DamageL = 0;
+            P2_GuardL = P2_ATKman.DEFlvlL;
+        }
+
+
+
+
 
 
 
         //DO P1 OR P2 TAKE DAMAGE
-        if (P2_ATKman.ATKlvlL > 0)
+        if (P2_ATKman.AttackingR == true) //ATKlvlL > 0)
         {
-            if (P1_ATKman.ATKlvlR < P2_ATKman.ATKlvlL)
+            if (P1_ATKman.ATKlvlL < P2_ATKman.ATKlvlR && P1_ATKman.DEFlvlL < P2_ATKman.ATKlvlR)
             {
-                P1_TakeDamageR = true;
+                P1_TakeDamageL = true;
+            }
+            if (P1_ATKman.DEFlvlL >= P2_ATKman.ATKlvlR)
+            {
+                //P1_TakeDamage = true;
+                P1_TakeDamageL = false;
             }
         }
-        if(P1_TakeDamageR == true)
+        /*if(P1_TakeDamageR == true)
         {
             if (P1_ATKman.DEFlvlR < P2_ATKman.ATKlvlL)
             {
@@ -119,16 +229,20 @@ public class Master : MonoBehaviour
                 //P1_TakeDamage = true;
                 P1_TakeDamageR = false;
             }
-        }
-
-        if (P2_ATKman.ATKlvlR > 0)
+        }*/
+        if (P2_ATKman.AttackingL == true)//P2_ATKman.ATKlvlR > 0)
         {
-            if (P1_ATKman.ATKlvlL < P2_ATKman.ATKlvlR)
+            if (P1_ATKman.ATKlvlR < P2_ATKman.ATKlvlL && P1_ATKman.DEFlvlR < P2_ATKman.ATKlvlL)
             {
-                P1_TakeDamageL = true;
+                P1_TakeDamageR = true;
+            }
+            if (P1_ATKman.DEFlvlR >= P2_ATKman.ATKlvlL)
+            {
+                //P1_TakeDamage = true;
+                P1_TakeDamageR = false;
             }
         }
-        if(P1_TakeDamageL == true)
+        /*if(P1_TakeDamageL == true)
         {
             if (P1_ATKman.DEFlvlL < P2_ATKman.ATKlvlR)
             {
@@ -140,17 +254,20 @@ public class Master : MonoBehaviour
                 //P1_TakeDamage = true;
                 P1_TakeDamageL = false;
             }
-        }
-        
-
-        if (P1_ATKman.ATKlvlR > 0)
+        }*/
+        if (P1_ATKman.AttackingR == true)//P1_ATKman.ATKlvlR > 0)
         {
-            if (P1_ATKman.ATKlvlR > P2_ATKman.ATKlvlL)
+            if (P1_ATKman.ATKlvlR > P2_ATKman.ATKlvlL && P1_ATKman.ATKlvlR > P2_ATKman.DEFlvlL)
             {
                 P2_TakeDamageL = true;
             }
+            if (P1_ATKman.ATKlvlR <= P2_ATKman.DEFlvlL)
+            {
+                //P2_TakeDamage = true;
+                P2_TakeDamageL = false;
+            }
         }
-        if(P2_TakeDamageL == true)
+        /*if(P2_TakeDamageL == true)
         {
             if (P1_ATKman.ATKlvlR > P2_ATKman.DEFlvlL)
             {
@@ -162,17 +279,20 @@ public class Master : MonoBehaviour
                 //P2_TakeDamage = true;
                 P2_TakeDamageL = false;
             }
-        }
-        
-
-        if (P1_ATKman.ATKlvlL > 0)
+        }*/
+        if (P1_ATKman.AttackingL == true)//P1_ATKman.ATKlvlL > 0)
         {
-            if (P1_ATKman.ATKlvlL > P2_ATKman.ATKlvlR)
+            if (P1_ATKman.ATKlvlL > P2_ATKman.ATKlvlR && P1_ATKman.ATKlvlL > P2_ATKman.DEFlvlR)
             {
                 P2_TakeDamageR = true;
             }
+            if (P1_ATKman.ATKlvlL <= P2_ATKman.DEFlvlR)
+            {
+                //P2_TakeDamage = true;
+                P2_TakeDamageR = false;
+            }
         }
-        if(P2_TakeDamageR == true)
+        /*if(P2_TakeDamageR == true)
         {
             if (P1_ATKman.ATKlvlL > P2_ATKman.DEFlvlR)
             {
@@ -184,113 +304,39 @@ public class Master : MonoBehaviour
                 //P2_TakeDamage = true;
                 P2_TakeDamageR = false;
             }
-        }
+        }*/
         
-
-        
-
-
-
 
         P1_HealthBar.value = P1_CurrentHP;
         P2_HealthBar.value = P2_CurrentHP;
-        //SET DAMAGE LEVELS P1
-        if (P1_ATKman.ATKlvlL > P1_ATKman.DEFlvlL)
-        {
-            P1_DamageL = P1_ATKman.ATKlvlL;
-        }
-        if (P1_ATKman.ATKlvlL < P1_ATKman.DEFlvlL)
-        {
-            P1_DamageL = 0;
-        }
-        if (P1_ATKman.ATKlvlR > P1_ATKman.DEFlvlR)
-        {
-            P1_DamageR = P1_ATKman.ATKlvlR;
-        }
-        if (P1_ATKman.ATKlvlR < P1_ATKman.DEFlvlR)
-        {
-            P1_DamageR = 0;
-        }
-        //Set GUARD LEVELS P1
-        if (P1_ATKman.ATKlvlL > P1_ATKman.DEFlvlL)
-        {
-            P1_GuardL = 0;
-        }
-        if (P1_ATKman.ATKlvlL < P1_ATKman.DEFlvlL)
-        {
-            P1_GuardL = P1_ATKman.DEFlvlL;
-        }
-        if (P1_ATKman.ATKlvlR > P1_ATKman.DEFlvlR)
-        {
-            P1_GuardR = 0;
-        }
-        if (P1_ATKman.ATKlvlR < P1_ATKman.DEFlvlR)
-        {
-            P1_GuardR = P1_ATKman.DEFlvlR;
-        }
-
-
-        //SET DAMAGE LEVELS P2
-        if (P2_ATKman.ATKlvlL > P2_ATKman.DEFlvlL)
-        {
-            P2_DamageL = P2_ATKman.ATKlvlL;
-        }
-        if (P2_ATKman.ATKlvlL < P2_ATKman.DEFlvlL)
-        {
-            P2_DamageL = 0;
-        }
-        if (P2_ATKman.ATKlvlR > P2_ATKman.DEFlvlR)
-        {
-            P2_DamageR = P2_ATKman.ATKlvlR;
-        }
-        if (P2_ATKman.ATKlvlR < P2_ATKman.DEFlvlR)
-        {
-            P1_DamageR = 0;
-        }
-        //SET GUARD LEVELS P2
-        if (P2_ATKman.ATKlvlL > P2_ATKman.DEFlvlL)
-        {
-            P2_GuardL = 0;
-        }
-        if (P2_ATKman.ATKlvlL < P2_ATKman.DEFlvlL)
-        {
-            P2_GuardL = P1_ATKman.DEFlvlL;
-        }
-        if (P2_ATKman.ATKlvlR > P2_ATKman.DEFlvlR)
-        {
-            P2_GuardR = 0;
-        }
-        if (P2_ATKman.ATKlvlR < P2_ATKman.DEFlvlR)
-        {
-            P2_GuardR = P2_ATKman.DEFlvlR;
-        }
+       
 
 
 
         if (P1_TakeDamageL == true && P1_TakeDamage == true )
         {
-            P1_CurrentHP = P1_CurrentHP - P2_DamageR + P1_GuardL;
+            P1_CurrentHP = P1_CurrentHP - (P2_DamageR - P1_ATKman.ATKlvlL - P1_GuardL);
             Debug.Log("1");
             P1_TakeDamage = false;
             //Go = false;
         }
         if (P2_TakeDamageL == true && P2_TakeDamage == true )
         {
-            P2_CurrentHP = P2_CurrentHP - P1_DamageR + P2_GuardL;
+            P2_CurrentHP = P2_CurrentHP - (P1_DamageR - P2_ATKman.ATKlvlL - P2_GuardL);
             Debug.Log("2");
             P2_TakeDamage = false;
             //Go = false;
         }
         if (P1_TakeDamageR == true && P1_TakeDamage == true )
         {
-            P1_CurrentHP = P1_CurrentHP - P2_DamageL + P1_GuardR;
+            P1_CurrentHP = P1_CurrentHP - (P2_DamageL - P1_ATKman.ATKlvlR - P1_GuardR);
             Debug.Log("3");
             P1_TakeDamage = false;
             //Go = false;
         }
         if (P2_TakeDamageR == true && P2_TakeDamage == true )
         {
-            P2_CurrentHP = P2_CurrentHP - P1_DamageL + P2_GuardL;
+            P2_CurrentHP = P2_CurrentHP - (P1_DamageL - P2_ATKman.ATKlvlR - P2_GuardR);
             Debug.Log("4");
             P2_TakeDamage = false;
             //Go = false;

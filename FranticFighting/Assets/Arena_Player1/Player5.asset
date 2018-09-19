@@ -16,4 +16,16 @@ MonoBehaviour:
   B3: 116
   B4: 121
   ReadyToAct: 1
-  img: {fileID: 0}
+  Player1: 0
+  Player2: 0
+  Player3: 0
+  Player4: 0
+  Player5: 0
+  Green: 0
+  Yellow: 0
+  Grey: 0
+  imgB1: {fileID: 0}
+  imgB2: {fileID: 0}
+  imgB3: {fileID: 0}
+  imgB4: {fileID: 0}
+  ButtonSuffix: P1_P5
