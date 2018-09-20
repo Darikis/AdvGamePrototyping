@@ -20,6 +20,29 @@ public class ImageMaster : MonoBehaviour {
     public Color Attackclr = new Color(86 / 255f, 231 / 255f, 84 / 255f);
     public Color Defendclr = new Color(255 / 255f, 232 / 255f, 10 / 255f);
 
+    void Awake()
+    {
+        foreach (Image img in P1Images)
+        {
+            img.color = Default;
+        }
+        foreach (Image img in P2Images)
+        {
+            img.color = Default;
+        }
+        foreach (Image img in P3Images)
+        {
+            img.color = Default;
+        }
+        foreach (Image img in P4Images)
+        {
+            img.color = Default;
+        }
+        foreach (Image img in P5Images)
+        {
+            img.color = Default;
+        }
+    }
     // Use this for initialization
     void Start () {
 		

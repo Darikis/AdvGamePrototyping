@@ -17,10 +17,15 @@ MonoBehaviour:
   B4: 120
   ReadyToAct: 1
   Player1: 0
-  Player2: 0
+  Player2: 1
   Player3: 0
   Player4: 0
   Player5: 0
+  btn1: 0
+  btn2: 0
+  btn3: 0
+  btn4: 0
+  btn5: 0
   Green: 0
   Yellow: 0
   Grey: 0

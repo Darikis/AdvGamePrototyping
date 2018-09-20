@@ -15,13 +15,18 @@ MonoBehaviour:
   B2: 50
   B3: 113
   B4: 119
-  ReadyToAct: 1
-  Player1: 0
+  ReadyToAct: 0
+  Player1: 1
   Player2: 0
   Player3: 0
   Player4: 0
   Player5: 0
-  Green: 0
+  btn1: 1
+  btn2: 0
+  btn3: 0
+  btn4: 0
+  btn5: 0
+  Green: 1
   Yellow: 0
   Grey: 0
   imgB1: {fileID: 0}

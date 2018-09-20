@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -26,6 +27,10 @@ public class PlayerPanal : MonoBehaviour {
     public bool AmP2;
     public bool InputReady = false;
     public bool Pressed = false;
+    public bool btn1;
+    public bool btn2;
+    public bool btn3;
+    public bool btn4;
     public bool Right;
     public bool Left;
     public bool RightAtk;
@@ -42,7 +47,10 @@ public class PlayerPanal : MonoBehaviour {
     public List<CtrlScheme> ListOfPlayers;
 
     // Use this for initialization
-
+    private void Awake()
+    {
+        
+    }
     void Start () {
         PP = gameObject;
         rigi = PP.GetComponent<Rigidbody>();
@@ -127,6 +135,7 @@ public class PlayerPanal : MonoBehaviour {
 
         foreach (CtrlScheme ctrl in ListOfPlayers)
         {
+            
             if (Pressed == false)
             {
                 ctrl.ReadyToAct = true;
@@ -136,83 +145,33 @@ public class PlayerPanal : MonoBehaviour {
             }
             if (ctrl.Grey == true)
             {
-                P1_btn.color = IM.Default;
-                P2_btn.color = IM.Default;
-                P3_btn.color = IM.Default;
-                P4_btn.color = IM.Default;
-                P5_btn.color = IM.Default;
-                P1_btn = null;
-                P2_btn = null;
-                P3_btn = null;
-                P4_btn = null;
-                P5_btn = null;
-            }
-            if(Pressed == true)
-            {
-                ctrl.Grey = false;
-                Image PressedButton = GameObject.Find("imgB1" + ctrl.ButtonSuffix + "1").GetComponent<Image>();
-                PressedButton.color = IM.Attackclr;
-                if (ctrl.Player1 == true)
+                if (P1_btn != null)
                 {
-                    P1_btn = PressedButton;
-                    if (ctrl.Green == true)
-                    {
-                        P1_btn.color = IM.Attackclr;
-                    }
-                    if (ctrl.Yellow == true)
-                    {
-                        P1_btn.color = IM.Defendclr;
-                    }
+                    P1_btn.color = IM.Default;
+                    P1_btn = null;
                 }
-                if (ctrl.Player2 == true)
+                if (P2_btn != null)
                 {
-                    P2_btn = PressedButton;
-                    if (ctrl.Green == true)
-                    {
-                        P2_btn.color = IM.Attackclr;
-                    }
-                    if (ctrl.Yellow == true)
-                    {
-                        P2_btn.color = IM.Defendclr;
-                    }
+                    P2_btn.color = IM.Default;
+                    P2_btn = null;
                 }
-                if (ctrl.Player3 == true)
+                if (P3_btn != null)
                 {
-                    P3_btn = PressedButton;
-                    if (ctrl.Green == true)
-                    {
-                        P3_btn.color = IM.Attackclr;
-                    }
-                    if (ctrl.Yellow == true)
-                    {
-                        P3_btn.color = IM.Defendclr;
-                    }
+                    P3_btn.color = IM.Default;
+                    P3_btn = null;
                 }
-                if (ctrl.Player4 == true)
+                if (P4_btn != null)
                 {
-                    P4_btn = PressedButton;
-                    if (ctrl.Green == true)
-                    {
-                        P4_btn.color = IM.Attackclr;
-                    }
-                    if (ctrl.Yellow == true)
-                    {
-                        P4_btn.color = IM.Defendclr;
-                    }
+                    P4_btn.color = IM.Default;
+                    P4_btn = null;
                 }
-                if (ctrl.Player5 == true)
+                if (P5_btn != null)
                 {
-                    P5_btn = PressedButton;
-                    if (ctrl.Green == true)
-                    {
-                        P5_btn.color = IM.Attackclr;
-                    }
-                    if (ctrl.Yellow == true)
-                    {
-                        P5_btn.color = IM.Defendclr;
-                    }
+                    P5_btn.color = IM.Default;
+                    P5_btn = null;
                 }
             }
+
             if (Input.GetKeyDown(ctrl.B1) && InputReady == true && ctrl.ReadyToAct == true)
             {
                 
@@ -221,6 +180,7 @@ public class PlayerPanal : MonoBehaviour {
                 //PressedButton.enabled = true;
                 MoveForward();
                 Pressed = true;
+                btn1 = true;
                 ctrl.Green = true;
                 if (AmP1 == true)
                 {
@@ -238,6 +198,7 @@ public class PlayerPanal : MonoBehaviour {
                 //GameObject.Find("imgB2" + ctrl.ButtonSuffix + "2").GetComponent<Image>().enabled = true;
                 MoveRight();
                 ctrl.Green = true;
+                btn2 = true;
                 Pressed = true;
                 if (AmP1 == true)
                 {
@@ -281,6 +242,99 @@ public class PlayerPanal : MonoBehaviour {
                 }
                 ctrl.ReadyToAct = false;
             }
+            if (CanTotal == true)
+            {
+                btn1 = false;
+                btn2 = false;
+                btn3 = false;
+                btn4 = false;
+            }
+            if (btn1 == false && btn2 == false && btn3 == false && btn4 == false)
+            {
+                ctrl.ReadyToAct = true;
+                ctrl.Green = false;
+                ctrl.Yellow = false;
+                ctrl.Grey = true;
+            }
+            if (ctrl.Grey == true)
+            {
+                if (P1_btn != null)
+                {
+                    P1_btn.color = IM.Default;
+                    P1_btn = null;
+                }
+                if (P2_btn != null)
+                {
+                    P2_btn.color = IM.Default;
+                    P2_btn = null;
+                }
+                if (P3_btn != null)
+                {
+                    P3_btn.color = IM.Default;
+                    P3_btn = null;
+                }
+                if (P4_btn != null)
+                {
+                    P4_btn.color = IM.Default;
+                    P4_btn = null;
+                }
+                if (P5_btn != null)
+                {
+                    P5_btn.color = IM.Default;
+                    P5_btn = null;
+                }
+            }
+            if (Pressed == true)
+            {
+                ctrl.Grey = false;
+                //GameObject PressedBtn = GameObject.Find("imgB1" + ctrl.ButtonSuffix + "1");
+                //Image PressedButton = PressedBtn.GetComponent<Image>();
+                //PressedButton.GetComponent<Image>().color = new Color32(IM.Attackclr);
+                if (ctrl.Player1 == true && btn1 == true)
+                {
+                    
+                    for (int i = 0; i < IM.P1Images.Count; i++)
+                    {
+                        if (IM.P1Images[i].name == "imgB1" + ctrl.ButtonSuffix + "_1" && P1_btn == null)
+                        {
+                            P1_btn = IM.P1Images[i];
+                        }
+                    }
+                    if (ctrl.Green == true && P1_btn != null)
+                    {
+                        //PressedBtn.color;
+                        P1_btn.GetComponent<Image>().color = IM.Attackclr;
+                    }
+                    if (ctrl.Yellow == true && P1_btn != null)
+                    {
+                        P1_btn.GetComponent<Image>().color = IM.Defendclr;
+                    }
+                }
+                    //P1_btn = IM.P2Images.Where(obj => obj.name == "imgB1" + ctrl.ButtonSuffix + "_1").SingleOrDefault();
+                    //Image PressedBtn = P1_btn;
+                    //PressedBtn;
+                    //P1_btn = GameObject.Find("imgB1" + ctrl.ButtonSuffix + "1").GetComponent<Image>();
+                    //PressedButton.GetComponent<Image>();
+
+            }
+                /*if (ctrl.Player2 == true)
+                {
+                    for (int i = 0; i < IM.P2Images.Count; i++)
+                    {
+                        if (IM.P2Images[i].name == "imgB1" + ctrl.ButtonSuffix + "_1" && P2_btn == null)
+                        {
+                            P2_btn = IM.P2Images[i];
+                        }
+                    }
+                    if (ctrl.Green == true)
+                    {
+                        P2_btn.color = IM.Attackclr;
+                    }
+                    if (ctrl.Yellow == true)
+                    {
+                        P2_btn.color = IM.Defendclr;
+                    }
+                }*/
 
         }
 

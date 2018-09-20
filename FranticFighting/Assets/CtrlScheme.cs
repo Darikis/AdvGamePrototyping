@@ -18,6 +18,11 @@ public class CtrlScheme : ScriptableObject
     public bool Player3;
     public bool Player4;
     public bool Player5;
+    public bool btn1;
+    public bool btn2;
+    public bool btn3;
+    public bool btn4;
+    public bool btn5;
     public bool Green;
     public bool Yellow;
     public bool Grey = true;
